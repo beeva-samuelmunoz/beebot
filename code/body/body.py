@@ -1,8 +1,8 @@
 
 import RPi.GPIO as GPIO
 
-# from .actuators.platform import Platform
-# from .actuators.servo import Servo
+from .actuators.platform import Platform
+from .actuators.servo import Servo
 
 class Body:
 
