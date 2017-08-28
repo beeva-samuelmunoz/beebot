@@ -1,37 +1,18 @@
 
-import time
 
 from body.body import Body
+from controllers.aws_iot import AWS_IOT as controllers
 
 
+PATH_CERTS = '~/beebot/AWS_certs/'
 
-b = Body()
-time.sleep(5)
 
-b.resources['elbow_right'].move(90)
-b.resources['elbow_left'].move(90)
-time.sleep(1)
-b.resources['shoulder_right'].move(0)
-b.resources['shoulder_left'].move(0)
-time.sleep(.5)
-b.resources['elbow_right'].move(180)
-b.resources['elbow_left'].move(180)
-time.sleep(3)
-b.resources['head_pan'].move(50)
-time.sleep(.5)
-b.resources['head_pan'].move(130)
-time.sleep(.5)
-b.resources['head_pan'].move(90)
-time.sleep(.5)
-b.resources['head_tilt'].move(130)
-time.sleep(.5)
-b.resources['head_tilt'].move(50)
-time.sleep(.5)
-b.resources['head_tilt'].move(90)
-
-b.stop()
-
-b = Body()
-b.stop()
-
-# b.resources['platform'].forward(0.3)
+controller = AWS_IOT(
+    body=Body(),
+    client_id="awsrobot",
+    endpoint_host="ayfx1339oonle.iot.us-east-1.amazonaws.com",
+    endpoint_port=8883,
+    path_ca=PATH_CERTS+"VeriSign-Class 3-Public-Primary-Certification-Authority-G5.pem",
+    path_key=PATH_CERTS+"bcf529f7b5-private.pem.key",
+    path_cert=PATH_CERTS+"bcf529f7b5-certificate.pem.crt"
+)
