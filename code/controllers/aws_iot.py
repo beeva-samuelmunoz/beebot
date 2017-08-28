@@ -17,7 +17,7 @@ class AWS_IOT:
         endpoint_host, endpoint_port ,  # Endpoint
         path_ca, path_key, path_cert,   # Credentials
     ):
-        self.body = body
+        self.body.resources = body
         # AWS IoT Client
         self.client = AWSIoTMQTTClient(client_id)
         self.client.configureEndpoint(endpoint_host, endpoint_port)
@@ -34,19 +34,20 @@ class AWS_IOT:
         # Topic: Action
         self.TOPIC2ACTION = {  # MQTT actuator topics
             # Arms
-            "beebot/shoulder_right": self.body['shoulder_right'].move,
-            "beebot/shoulder_left": self.body['shoulder_left'].move,
-            "beebot/elbow_right": self.body['elbow_right'].move,
-            "beebot/elbow_left": self.body['elbow_left'].move,
+            "beebot/shoulder_right": self.body.resources['shoulder_right'].move,
+            "beebot/shoulder_left": self.body.resources['shoulder_left'].move,
+            "beebot/elbow_right": self.body.resources['elbow_right'].move,
+            "beebot/elbow_left": self.body.resources['elbow_left'].move,
             # Platform
-            "beebot/platform/forward": self.body['platform'].forward,
-            "beebot/platform/backward": self.body['platform'].backward,
-            "beebot/platform/turn_left": self.body['platform'].turn_left,
-            "beebot/platform/turn_right": self.body['platform'].turn_right,
-            "beebot/platform/stop": self.body['platform'].stop,
+            "beebot/platform/forward": self.body.resources['platform'].forward,
+            "beebot/platform/backward": self.body.resources['platform'].backward,
+            "beebot/platform/turn_left": self.body.resources['platform'].turn_left,
+            "beebot/platform/turn_right": self.body.resources['platform'].turn_right,
+            "beebot/platform/stop": self.body.resources['platform'].stop,
             # Head
-            "beebot/head_pan": self.body['head_pan'].move,
-            "beebot/head_tilt": self.body['head_tilt'].move,
+            "beebot/head_pan": self.body.resources['head_pan'].move,
+            "beebot/head_tilt": self.body.resources['head_tilt'].move,
+            # TODO: Camera 
         }
         # Actuators: subscribe to topics
         for topic in self.TOPIC2ACTION.keys():
