@@ -1,8 +1,12 @@
+# -*- coding: utf-8 -*-
+
 
 import RPi.GPIO as GPIO
 
 from .actuators.platform import Platform
 from .actuators.servo import Servo
+from .sensors.webcam_streamer import WebcamStreamer
+
 
 class Body:
 
@@ -45,7 +49,6 @@ class Body:
             Min: 70º elbow is flexed
             Max: 180º elbow is extended
         """
-
         self.resources['elbow_right'] = Servo(
             pin=16,
             deg_min=70,
@@ -97,7 +100,6 @@ class Body:
 
         """
         PLATFORM
-
         """
         self.resources['platform']  = Platform(
             in1=22,
@@ -107,12 +109,18 @@ class Body:
         )
         self.resources['platform'].stop()
 
+        """
+        WEBCAM
+        """
+        self.resources['webcam'] = WebcamStreamer('cvlc --no-audio v4l2:///dev/video0:width=640:height=480 --v4l2-fps 10      --sout "#transcode{vcodec=MJPG,vb=400}:standard{access=http,mux=mpjpeg,dst=:18223/}" --sout-http-mime="multipart/x-mixed-replace;boundary=--7b3cc56e5f51db803f790dad720ed50a"')
+
+
 
 
 
     def stop(self):
         """Stop body and release resources
         """
-        for servo in self.resources.values():
-            servo.stop()
+        for resource in self.resources.values():
+            resource.stop()
         GPIO.cleanup()
