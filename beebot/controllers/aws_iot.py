@@ -17,7 +17,7 @@ class AWS_IOT:
         endpoint_host, endpoint_port ,  # Endpoint
         path_ca, path_key, path_cert,   # Credentials
     ):
-        self.body.resources = body
+        self.body = body
         # AWS IoT Client
         self.client = AWSIoTMQTTClient(client_id)
         self.client.configureEndpoint(endpoint_host, endpoint_port)
@@ -47,7 +47,9 @@ class AWS_IOT:
             # Head
             "beebot/head_pan": self.body.resources['head_pan'].move,
             "beebot/head_tilt": self.body.resources['head_tilt'].move,
-            # TODO: Camera 
+            # Webcam
+            "beebot/webcam/start": self.body.resources['webcam'].start,
+            "beebot/webcam/stop": self.body.resources['webcam'].stop,
         }
         # Actuators: subscribe to topics
         for topic in self.TOPIC2ACTION.keys():
@@ -55,9 +57,17 @@ class AWS_IOT:
 
 
     def _msg_parser(self, client_id, user_data, msg):
-        try:
-            payload = float(payload)
-            self.TOPIC2ACTION[msg.topic](payload)
-            self.client.publish(msg.topic+"/status", str(payload), 0)
-        except Exception as e:
-            print(e.message)
+        action = msg.topic('/')[-1]
+        status = None
+        if action in {'start','stop'}:  #No payload actions
+            self.TOPIC2ACTION[msg.topic]()
+            status = 0 if action=='stop' else 1
+        else:
+            try:
+                payload = float(msg.payload)
+                self.TOPIC2ACTION[msg.topic](payload)
+                status = payload
+            except Exception as e:
+                print(e.message)
+        if status:
+            self.client.publish(msg.topic+"/status", str(status) , 0)
