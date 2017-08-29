@@ -2,7 +2,7 @@
 
 
 from body.body import Body
-from controllers.aws_iot import AWS_IOT as controllers
+from controllers.aws_iot import AWS_IOT
 
 
 PATH_CERTS = '~/beebot/data/AWS_certs/'
