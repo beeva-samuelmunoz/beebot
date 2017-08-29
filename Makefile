@@ -63,8 +63,8 @@ install-bootup: ## Create files to start beebot on bootup  (root permissions).
 #
 
 run-demo_day: ## Run the demo day
-	@$(VENV_PATH)'/bin/python beebot/beebot-demo_day.py
+	@$(VENV_PATH)'/bin/python' beebot/beebot-demo_day.py
 
 
 run-aws_iot: ## Run the Amazon Web Services IoT controller
-	@$(VENV_PATH)'/bin/python beebot/beebot-aws_iot.py
+	@$(VENV_PATH)'/bin/python' beebot/beebot-aws_iot.py
