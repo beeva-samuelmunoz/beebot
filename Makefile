@@ -29,11 +29,16 @@ help:
 	@grep -E '^[0-9a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 
-
 #
 ### Install the project
 #
-install: ## Create a development environment (virtualenv).
+
+install-system_packages: ## Install Required system packages (root permissions).
+	#TODO: python3, virtualenv, vlc
+	@echo "Installing system packages"
+
+
+install-env: ## Create a running environment (virtualenv).
 	@echo "Create the environment in "$(PATH_VENV)
 	@virtualenv -p python3.5 $(PATH_VENV)
 	@echo "Install requirements"
@@ -46,9 +51,20 @@ install: ## Create a development environment (virtualenv).
 	@echo "Done"
 
 
-install-system_packages: ## Required system packages
-	#TODO: python3, virtualenv, vlc supervisor
-	@echo "Create the environment in "$(PATH_VENV)
+install-bootup: ## Create files to start beebot on bootup  (root permissions).
+# TODO:
+# install supervisor
+#deploy supervisor deploy/beebot.conf
 
 
-# TODO: deploy supervisor deploy/beebot.conf
+
+#
+### Run different behaviors.
+#
+
+run-demo_day: ## Run the demo day
+	@$(VENV_PATH)'/bin/python beebot/beebot-demo_day.py
+
+
+run-aws_iot: ## Run the Amazon Web Services IoT controller
+	@$(VENV_PATH)'/bin/python beebot/beebot-aws_iot.py
