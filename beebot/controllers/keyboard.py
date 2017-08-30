@@ -21,14 +21,14 @@ class Keyboard:
             if ord(key) == 4:
                 key = 'CTRL+D'
             elif ord(key)==27:  # Arrow keys
-                key = _wait_key()
+                key = self._wait_key()
                 if ord(key)==91:
                     key = {
                     66: 'arrow_down',
                     65: 'arrow_up',
                     67: 'arrow_righ',
                     68: 'arrow_left'
-                    }.get(ord(_wait_key()))
+                    }.get(ord(self._wait_key()))
             # Act upon key
             if key=='CTRL+D':
                 exit = True
@@ -61,13 +61,13 @@ class Keyboard:
                 self.body.resources['platform'].turn_left(.3)
             # Head
             elif key=='w':
-                self.move_servo('head_tilt', +10)
-            elif key=='s':
                 self.move_servo('head_tilt', -10)
+            elif key=='s':
+                self.move_servo('head_tilt', +10)
             elif key=='d':
-                self.move_servo('head_pan', +10)
-            elif key=='a':
                 self.move_servo('head_pan', -10)
+            elif key=='a':
+                self.move_servo('head_pan', +10)
             # Webcam
             elif key=='c':
                 webcam = self.body.resources['webcam']

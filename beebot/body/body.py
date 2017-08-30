@@ -20,7 +20,7 @@ class Body:
             Min: 0º arm is up
             Max: 180º arm is down
         """
-        self.resources['shoulder_left'] = Servo(
+        self.resources['shoulder_right'] = Servo(
             pin=19,
             deg_min=0,
             deg_max=180,
@@ -28,7 +28,7 @@ class Body:
             dc_max=12,
             pwm_freq=50
         )
-        self.resources['shoulder_right'] = Servo(
+        self.resources['shoulder_left'] = Servo(
             pin=26,
             deg_min=0,
             deg_max=180,
@@ -37,8 +37,8 @@ class Body:
             pwm_freq=50
         )
         # Unify movement
-        self.resources['shoulder_left'].move = self.resources['shoulder_left'].set
-        self.resources['shoulder_right'].move = lambda deg: self.resources['shoulder_right'].set((180-deg)%181)
+        self.resources['shoulder_right'].move = self.resources['shoulder_right'].set
+        self.resources['shoulder_left'].move = lambda deg: self.resources['shoulder_left'].set((180-deg)%181)
         # Initial status
         self.resources['shoulder_right'].move(180)
         self.resources['shoulder_left'].move(180)
@@ -49,7 +49,7 @@ class Body:
             Min: 70º elbow is flexed
             Max: 180º elbow is extended
         """
-        self.resources['elbow_left'] = Servo(
+        self.resources['elbow_right'] = Servo(
             pin=16,
             deg_min=70,
             deg_max=180,
@@ -57,7 +57,7 @@ class Body:
             dc_max=13,
             pwm_freq=50
         )
-        self.resources['elbow_right'] = Servo(
+        self.resources['elbow_left'] = Servo(
             pin=20,
             deg_min=0,
             deg_max=110,
@@ -66,8 +66,8 @@ class Body:
             pwm_freq=50
         )
         # Unify movement
-        self.resources['elbow_left'].move = self.resources['elbow_left'].set
-        self.resources['elbow_right'].move = lambda deg: self.resources['elbow_right'].set((180-deg)%181)
+        self.resources['elbow_right'].move = self.resources['elbow_right'].set
+        self.resources['elbow_left'].move = lambda deg: self.resources['elbow_left'].set((180-deg)%181)
         self.resources['elbow_right'].move(180)
         self.resources['elbow_left'].move(180)
 
