@@ -112,8 +112,7 @@ class Body:
         """
         WEBCAM
         """
-        self.resources['webcam'] = WebcamStreamer('cvlc --no-audio v4l2:///dev/video0:width=800:height=600 --v4l2-fps 10 --sout "#transcode{vcodec=MJPG,vb=1600}:standard{access=http,mux=mpjpeg,dst=:18223/}" --sout-http-mime="multipart/x-mixed-replace;boundary=--7b3cc56e5f51db803f790dad720ed50a"
-')
+        self.resources['webcam'] = WebcamStreamer('cvlc --no-audio v4l2:///dev/video0:width=800:height=600 --v4l2-fps 10 --sout "#transcode{vcodec=MJPG,vb=1600}:standard{access=http,mux=mpjpeg,dst=:18223/}" --sout-http-mime="multipart/x-mixed-replace;boundary=--7b3cc56e5f51db803f790dad720ed50a"')
 
 
     def stop(self):
