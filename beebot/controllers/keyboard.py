@@ -24,14 +24,14 @@ class Keyboard:
                 key = self._wait_key()
                 if ord(key)==91:
                     k = ord(self._wait_key())
-                    print(k)
                     key = {
                     66: 'arrow_down',
                     65: 'arrow_up',
-                    67: 'arrow_righ',
+                    67: 'arrow_right',
                     68: 'arrow_left'
                     }.get(k)
             # Act upon key
+            print(key)
             if key=='CTRL+D':
                 exit = True
             # Right arm
