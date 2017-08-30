@@ -23,12 +23,14 @@ class Keyboard:
             elif ord(key)==27:  # Arrow keys
                 key = self._wait_key()
                 if ord(key)==91:
+                    k = ord(self._wait_key())
+                    print(k)
                     key = {
                     66: 'arrow_down',
                     65: 'arrow_up',
                     67: 'arrow_righ',
                     68: 'arrow_left'
-                    }.get(ord(self._wait_key()))
+                    }.get(k)
             # Act upon key
             if key=='CTRL+D':
                 exit = True
@@ -52,13 +54,13 @@ class Keyboard:
                 self.move_servo('elbow_left', -10)
             # Platform
             elif key=='arrow_up':
-                self.body.resources['platform'].forward(.5)
+                self.body.resources['platform'].forward(.1)
             elif key=='arrow_down':
-                self.body.resources['platform'].backward(.5)
+                self.body.resources['platform'].backward(.1)
             elif key=='arrow_right':
-                self.body.resources['platform'].turn_right(.3)
+                self.body.resources['platform'].turn_right(.1)
             elif key=='arrow_left':
-                self.body.resources['platform'].turn_left(.3)
+                self.body.resources['platform'].turn_left(.1)
             # Head
             elif key=='w':
                 self.move_servo('head_tilt', -10)
