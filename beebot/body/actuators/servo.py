@@ -27,12 +27,12 @@ class Servo:
 		self.servo.stop()
 
 
-	def set(self, degrees):
-		'''Move the servo smoothly
+	def set(self, degrees, sg=0.5):
+		'''Move the servo to degrees in sg time.
 		'''
 		if self.deg_min <= degrees <= self.deg_max:
 			self.servo.ChangeDutyCycle(self.deg2dc(degrees))
-			time.sleep(0.5)
+			time.sleep(sg)
 			self.servo.ChangeDutyCycle(0)  # Stop servo, save energy
 			# If necesary, smooth motion
 			self.status = degrees
