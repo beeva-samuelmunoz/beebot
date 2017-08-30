@@ -83,7 +83,7 @@ class Keyboard:
         """Increase the servo position by deg degrees
         """
         servo = self.body.resources[servo_name]
-        servo.move(servo.status+deg, 0.1)
+        servo.set(servo.status+deg, 0.1)  # Low level
 
 
     @staticmethod
