@@ -13,10 +13,11 @@ class Keyboard:
 
 
     def loop(self):
+        print("Press Ctrl-D to exit:")
         key = 0
         exit = False
         while not exit:
-            key = _wait_key()
+            key = self._wait_key()
             # Arrows
             if ord(key) == 4:
                 key = 'CTRL+D'
@@ -41,7 +42,7 @@ class Keyboard:
             elif key=='ñ':
                 self.move_servo('elbow_right', +10)
             elif key=='k':
-                self.move_servo('shoulder_right', -10)
+                self.move_servo('elbow_right', -10)
             # Left arm
             elif key=='L':
                 self.move_servo('shoulder_left', +10)
@@ -50,7 +51,7 @@ class Keyboard:
             elif key=='Ñ':
                 self.move_servo('elbow_left', +10)
             elif key=='K':
-                self.move_servo('shoulder_left', -10)
+                self.move_servo('elbow_left', -10)
             # Platform
             elif key=='arrow_up':
                 self.body.resources['platform'].forward(.5)
@@ -62,13 +63,13 @@ class Keyboard:
                 self.body.resources['platform'].turn_left(.3)
             # Head
             elif key=='w':
-                self.move_servo('head_pan', +5)
+                self.move_servo('head_tilt', +10)
             elif key=='s':
-                self.move_servo('head_pan', -5)
+                self.move_servo('head_tilt', -10)
             elif key=='d':
-                self.move_servo('head_tilt', +5)
+                self.move_servo('head_pan', +10)
             elif key=='a':
-                self.move_servo('head_tilt', -5)
+                self.move_servo('head_pan', -10)
             # Webcam
             elif key=='c':
                 webcam = self.body.resources['webcam']

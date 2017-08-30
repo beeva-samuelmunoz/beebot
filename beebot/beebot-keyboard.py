@@ -2,7 +2,7 @@
 
 
 from body.body import Body
-from controllers.keboard import Keyboard
+from controllers.keyboard import Keyboard
 
 
 
