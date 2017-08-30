@@ -21,7 +21,7 @@ class Body:
             Max: 180º arm is down
         """
         self.resources['shoulder_right'] = Servo(
-            pin=19,
+            pin=26,
             deg_min=0,
             deg_max=180,
             dc_min=2,
@@ -29,7 +29,7 @@ class Body:
             pwm_freq=50
         )
         self.resources['shoulder_left'] = Servo(
-            pin=26,
+            pin=19,
             deg_min=0,
             deg_max=180,
             dc_min=2.5,
@@ -50,7 +50,7 @@ class Body:
             Max: 180º elbow is extended
         """
         self.resources['elbow_right'] = Servo(
-            pin=16,
+            pin=20,
             deg_min=70,
             deg_max=180,
             dc_min=6.8,
@@ -58,7 +58,7 @@ class Body:
             pwm_freq=50
         )
         self.resources['elbow_left'] = Servo(
-            pin=20,
+            pin=16,
             deg_min=0,
             deg_max=110,
             dc_min=3,
