@@ -29,13 +29,13 @@ class Platform:
 
 
 	def turn_left(self, sg):
-		self.action([GPIO.LOW, GPIO.HIGH, GPIO.HIGH, GPIO.LOW])
+		self.action([GPIO.HIGH, GPIO.LOW, GPIO.LOW, GPIO.HIGH])
 		time.sleep(sg)
 		self.stop()
 
 
 	def turn_right(self, sg):
-		self.action([GPIO.HIGH, GPIO.LOW, GPIO.LOW, GPIO.HIGH])
+		self.action([GPIO.LOW, GPIO.HIGH, GPIO.HIGH, GPIO.LOW])
 		time.sleep(sg)
 		self.stop()
 
