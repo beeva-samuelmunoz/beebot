@@ -66,5 +66,9 @@ run-demo_day: ## Run the demo day
 	@$(PATH_VENV)'/bin/python' beebot/beebot-demo_day.py
 
 
+run-keyboard: ## Run the keyboard controller
+	@$(PATH_VENV)'/bin/python' beebot/beebot-keyboard.py
+
+
 run-aws_iot: ## Run the Amazon Web Services IoT controller
 	@$(PATH_VENV)'/bin/python' beebot/beebot-aws_iot.py
