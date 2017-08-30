@@ -13,7 +13,6 @@ class Keyboard:
 
 
     def loop(self):
-        print("Press Ctrl-D to exit:")
         key = 0
         exit = False
         while not exit:
@@ -31,7 +30,6 @@ class Keyboard:
                     68: 'arrow_left'
                     }.get(ord(_wait_key()))
             # Act upon key
-            print(key)
             if key=='CTRL+D':
                 exit = True
             # Right arm
@@ -77,7 +75,6 @@ class Keyboard:
                     webcam.stop()
                 else:
                     webcam.start()
-        self.body.stop()
 
 
     def move_servo(self, servo_name, deg):
