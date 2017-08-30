@@ -66,10 +66,10 @@ class Body:
             pwm_freq=50
         )
         # Unify movement
-        self.resources['elbow_right'].move = self.resources['elbow_right'].set
-        self.resources['elbow_left'].move = lambda deg: self.resources['elbow_left'].set((180-deg)%181)
-        self.resources['elbow_right'].move(180)
+        self.resources['elbow_left'].move = self.resources['elbow_right'].set
+        self.resources['elbow_right'].move = lambda deg: self.resources['elbow_left'].set((180-deg)%181)
         self.resources['elbow_left'].move(180)
+        self.resources['elbow_right'].move(180)
 
         """
         HEAD (pan and tilt)
