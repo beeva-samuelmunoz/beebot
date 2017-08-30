@@ -36,7 +36,7 @@ class Body:
             dc_max=12.5,
             pwm_freq=50
         )
-        # Unify movement
+        # Unify movement, move servos to certain degrees
         self.resources['shoulder_right'].move = self.resources['shoulder_right'].set
         self.resources['shoulder_left'].move = lambda deg: self.resources['shoulder_left'].set((180-deg)%181)
         # Initial status
@@ -65,7 +65,7 @@ class Body:
             dc_max=9.111,
             pwm_freq=50
         )
-        # Unify movement
+        # Unify movement, move servos to certain degrees
         self.resources['elbow_right'].move = self.resources['elbow_right'].set
         self.resources['elbow_left'].move = lambda deg: self.resources['elbow_left'].set((180-deg)%181)
         self.resources['elbow_right'].move(180)
