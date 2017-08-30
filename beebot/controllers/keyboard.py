@@ -44,13 +44,13 @@ class Keyboard:
             elif key=='k':
                 self.move_servo('elbow_right', -10)
             # Left arm
-            elif key=='L':
+            elif key=='h':
                 self.move_servo('shoulder_left', +10)
-            elif key=='O':
+            elif key=='y':
                 self.move_servo('shoulder_left', -10)
-            elif key=='Ñ':
+            elif key=='j':
                 self.move_servo('elbow_left', +10)
-            elif key=='K':
+            elif key=='g':
                 self.move_servo('elbow_left', -10)
             # Platform
             elif key=='arrow_up':
