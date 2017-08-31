@@ -15,6 +15,7 @@ class Keyboard:
     def loop(self):
         key = 0
         exit = False
+        resources = self.body.resources
         while not exit:
             key = self._wait_key()
             # Arrows
@@ -36,40 +37,40 @@ class Keyboard:
                 exit = True
             # Right arm
             elif key=='l':
-                self.move_servo('shoulder_right', +10)
+                resources['shoulder_right'].set_relative(+10, 0.1)
             elif key=='o':
-                self.move_servo('shoulder_right', -10)
+                resources['shoulder_right'].set_relative(-10, 0.1)
             elif key=='ñ':
-                self.move_servo('elbow_right', +10)
+                resources['elbow_right'].set_relative(+10, 0.1)
             elif key=='k':
-                self.move_servo('elbow_right', -10)
+                resources['elbow_right'].set_relative(-10, 0.1)
             # Left arm
             elif key=='L':
-                self.move_servo('shoulder_left', -10)
+                resources['shoulder_left'].set_relative(-10, 0.1)
             elif key=='O':
-                self.move_servo('shoulder_left', +10)
+                resources['shoulder_left'].set_relative(+10, 0.1)
             elif key=='Ñ':
-                self.move_servo('elbow_left', -10)
+                resources['shoulder_left'].set_relative(-10, 0.1)
             elif key=='K':
-                self.move_servo('elbow_left', +10)
+                resources['shoulder_left'].set_relative(+10, 0.1)
             # Platform
             elif key=='arrow_up':
-                self.body.resources['platform'].forward(.1)
+                resources['platform'].forward(0.1)
             elif key=='arrow_down':
-                self.body.resources['platform'].backward(.1)
+                resources['platform'].backward(0.1)
             elif key=='arrow_right':
-                self.body.resources['platform'].turn_right(.1)
+                resources['platform'].turn_right(0.1)
             elif key=='arrow_left':
-                self.body.resources['platform'].turn_left(.1)
+                resources['platform'].turn_left(0.1)
             # Head
             elif key=='w':
-                self.move_servo('head_tilt', -10)
+                resources['head_tilt'].set_relative(-10, 0.1)
             elif key=='s':
-                self.move_servo('head_tilt', +10)
+                resources['head_tilt'].set_relative(+10, 0.1)
             elif key=='d':
-                self.move_servo('head_pan', -10)
+                resources['head_pan'].set_relative(-10, 0.1)
             elif key=='a':
-                self.move_servo('head_pan', +10)
+                resources['head_pan'].set_relative(+10, 0.1)
             # Webcam
             elif key=='c':
                 webcam = self.body.resources['webcam']
@@ -77,13 +78,6 @@ class Keyboard:
                     webcam.stop()
                 else:
                     webcam.start()
-
-
-    def move_servo(self, servo_name, deg):
-        """Increase the servo position by deg degrees
-        """
-        servo = self.body.resources[servo_name]
-        servo.set(servo.status+deg, 0.1)  # Low level
 
 
     @staticmethod

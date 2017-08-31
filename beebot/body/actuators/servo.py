@@ -22,17 +22,23 @@ class Servo:
 
 
 	def stop(self):
-		'''Release resources
-		'''
+		"""Release resources
+		"""
 		self.servo.stop()
 
 
 	def set(self, degrees, sg=0.5):
-		'''Move the servo to degrees in sg time.
-		'''
+		"""Move the servo to degrees in sg time.
+		"""
 		if self.deg_min <= degrees <= self.deg_max:
 			self.servo.ChangeDutyCycle(self.deg2dc(degrees))
 			time.sleep(sg)
 			self.servo.ChangeDutyCycle(0)  # Stop servo, save energy
 			# If necesary, smooth motion
 			self.status = degrees
+
+
+	def set_relative(self, degrees, sg=0.5):
+		"""Move servo +- degrees relative to current position
+		"""
+		self.set(self.status+degrees, sg)
