@@ -8,14 +8,13 @@ import sys
 
 class Keyboard:
 
-    def __init__(self, body):
-        self.body = body
+    def __init__(self, client):
+        self.client = client
 
 
     def loop(self):
         key = 0
         exit = False
-        resources = self.body.resources
         while not exit:
             key = self._wait_key()
             # Arrows
@@ -32,52 +31,10 @@ class Keyboard:
                     68: 'arrow_left'
                     }.get(k)
             # Act upon key
-            print(key)
             if key=='CTRL+D':
                 exit = True
-            # Right arm
-            elif key=='l':
-                resources['shoulder_right'].set_relative(+10, 0.1)
-            elif key=='o':
-                resources['shoulder_right'].set_relative(-10, 0.1)
-            elif key=='ñ':
-                resources['elbow_right'].set_relative(+10, 0.1)
-            elif key=='k':
-                resources['elbow_right'].set_relative(-10, 0.1)
-            # Left arm
-            elif key=='L':
-                resources['shoulder_left'].set_relative(-10, 0.1)
-            elif key=='O':
-                resources['shoulder_left'].set_relative(+10, 0.1)
-            elif key=='Ñ':
-                resources['shoulder_left'].set_relative(-10, 0.1)
-            elif key=='K':
-                resources['shoulder_left'].set_relative(+10, 0.1)
-            # Platform
-            elif key=='arrow_up':
-                resources['platform'].forward(0.1)
-            elif key=='arrow_down':
-                resources['platform'].backward(0.1)
-            elif key=='arrow_right':
-                resources['platform'].turn_right(0.1)
-            elif key=='arrow_left':
-                resources['platform'].turn_left(0.1)
-            # Head
-            elif key=='w':
-                resources['head_tilt'].set_relative(-10, 0.1)
-            elif key=='s':
-                resources['head_tilt'].set_relative(+10, 0.1)
-            elif key=='d':
-                resources['head_pan'].set_relative(-10, 0.1)
-            elif key=='a':
-                resources['head_pan'].set_relative(+10, 0.1)
-            # Webcam
-            elif key=='c':
-                webcam = self.body.resources['webcam']
-                if webcam.is_playing:
-                    webcam.stop()
-                else:
-                    webcam.start()
+            else:
+                self.client.event(key)
 
 
     @staticmethod
