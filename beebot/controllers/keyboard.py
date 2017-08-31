@@ -10,6 +10,30 @@ class Keyboard:
 
     def __init__(self, client):
         self.client = client
+        self.key2event = {
+            # Right arm
+            'o': 'shoulder_right_up',
+            'l': 'shoulder_right_down',
+            'k': 'elbow_right_up',
+            'ñ': 'elbow_right_down',
+            # Left arm
+            'O': 'shoulder_left_up',
+            'L': 'shoulder_left_down',
+            'K': 'elbow_left_up',
+            'Ñ': 'elbow_left_down',
+            # Platform
+            'arrow_up': 'platform_forward',
+            'arrow_down': 'platform_backward',
+            'arrow_right': 'platform_right',
+            'arrow_left': 'platform_left',
+            # Head
+            'w': 'head_tilt_up',
+            's': 'head_tilt_down',
+            'a': 'head_pan_left',
+            'd': 'head_pan_right',
+            # Camera
+            'c': 'camera_switch'
+        }
 
 
     def loop(self):
@@ -34,7 +58,9 @@ class Keyboard:
             if key=='CTRL+D':
                 exit = True
             else:
-                self.client.event(key)
+                event = self.key2event.get(key, None)
+                if event:
+                    self.client.event(event)
 
 
     @staticmethod
