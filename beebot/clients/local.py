@@ -28,9 +28,9 @@ class Local:
         elif ev=='shoulder_left_up':
             self.body.resources['shoulder_left'].set_relative(+10, 0.1)
         elif ev=='elbow_left_down':
-            self.body.resources['shoulder_left'].set_relative(-10, 0.1)
+            self.body.resources['elbow_left'].set_relative(-10, 0.1)
         elif ev=='elbow_left_up':
-            self.body.resources['shoulder_left'].set_relative(+10, 0.1)
+            self.body.resources['elbow_left'].set_relative(+10, 0.1)
         # Platform
         elif ev=='platform_forward':
             self.body.resources['platform'].forward(0.1)
@@ -50,7 +50,7 @@ class Local:
         elif ev=='head_pan_left':
             self.body.resources['head_pan'].set_relative(+10, 0.1)
         # Webcam
-        elif ev=='c':
+        elif ev=='camera_switch':
             webcam = self.body.resources['webcam']
             if webcam.is_playing:
                 webcam.stop()
