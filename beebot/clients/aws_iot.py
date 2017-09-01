@@ -51,18 +51,24 @@ class AWS_IOT:
             self.client.publish("beebot/shoulder_right", 10 , 0)
         elif ev=='shoulder_right_up':
             self.client.publish("beebot/shoulder_right", -10 , 0)
-        # elif ev=='elbow_right_down':
-        # elif ev=='elbow_right_up':
+        elif ev=='elbow_right_down':
+            self.client.publish("beebot/elbow_right", -10 , 0)
+        elif ev=='elbow_right_up':
+            self.client.publish("beebot/elbow_right", -10 , 0)
         # # Left arm
-        # elif ev=='shoulder_left_down':
-        # elif ev=='shoulder_left_up':
-        # elif ev=='elbow_left_down':
-        # elif ev=='elbow_left_up':
+        elif ev=='shoulder_left_down':
+            self.client.publish("beebot/shoulder_left", -10 , 0)
+        elif ev=='shoulder_left_up':
+            self.client.publish("beebot/shoulder_left", 10 , 0)
+        elif ev=='elbow_left_down':
+            self.client.publish("beebot/elbow_left", -10 , 0)
+        elif ev=='elbow_left_up':
+            self.client.publish("beebot/elbow_left", +10 , 0)
         # # Platform
-        # elif ev=='platform_forward':
-        # elif ev=='platform_backward':
-        # elif ev=='platform_right':
-        # elif ev=='platform_left':
+        elif ev=='platform_forward':
+        elif ev=='platform_backward':
+        elif ev=='platform_right':
+        elif ev=='platform_left':
         # # Head
         # elif ev=='head_tilt_up':
         # elif ev=='head_tilt_down':
@@ -77,29 +83,7 @@ class AWS_IOT:
         #         webcam.start()
 
 
-        # # Topic: Action
-        # self.TOPIC2ACTION = {  # MQTT actuator topics
-        #     # Arms
-        #     "beebot/shoulder_right": self.body.resources['shoulder_right'].move,
-        #     "beebot/shoulder_left": self.body.resources['shoulder_left'].move,
-        #     "beebot/elbow_right": self.body.resources['elbow_right'].move,
-        #     "beebot/elbow_left": self.body.resources['elbow_left'].move,
-        #     # Platform
-        #     "beebot/platform/forward": self.body.resources['platform'].forward,
-        #     "beebot/platform/backward": self.body.resources['platform'].backward,
-        #     "beebot/platform/turn_left": self.body.resources['platform'].turn_left,
-        #     "beebot/platform/turn_right": self.body.resources['platform'].turn_right,
-        #     "beebot/platform/stop": self.body.resources['platform'].stop,
-        #     # Head
-        #     "beebot/head_pan": self.body.resources['head_pan'].move,
-        #     "beebot/head_tilt": self.body.resources['head_tilt'].move,
-        #     # Webcam
-        #     "beebot/webcam/start": self.body.resources['webcam'].start,
-        #     "beebot/webcam/stop": self.body.resources['webcam'].stop,
-        # }
-        # # Actuators: subscribe to topics
-        # for topic in self.TOPIC2ACTION.keys():
-        #     self.client.subscribe(topic, 1, self._msg_parser)
+
 
 
     # def _msg_parser(self, client_id, user_data, msg):

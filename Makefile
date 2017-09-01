@@ -74,7 +74,7 @@ run-local-client: ## Controll the robot locally on a console
 
 
 run-aws_iot-backend: ## Run the Amazon Web Services IoT backend
-	@$(PATH_VENV)'/bin/python' beebot/beebot-aws_iot.py
+	@$(PATH_VENV)'/bin/python' beebot/beebot-aws_iot-backend.py
 
 
 run-aws_iot-client: ## Run the Amazon Web Services IoT client
