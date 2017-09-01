@@ -65,10 +65,10 @@ class AWS_IOT:
         elif ev=='elbow_left_up':
             self.client.publish("beebot/elbow_left", +10 , 0)
         # # Platform
-        elif ev=='platform_forward':
-        elif ev=='platform_backward':
-        elif ev=='platform_right':
-        elif ev=='platform_left':
+        # elif ev=='platform_forward':
+        # elif ev=='platform_backward':
+        # elif ev=='platform_right':
+        # elif ev=='platform_left':
         # # Head
         # elif ev=='head_tilt_up':
         # elif ev=='head_tilt_down':

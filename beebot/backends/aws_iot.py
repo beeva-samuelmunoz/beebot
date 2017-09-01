@@ -68,17 +68,15 @@ class AWS_IOT:
 
 
     def _msg_parser(self, client_id, user_data, msg):
-        action = msg.topic('/')[-1]
-        status = None
-        if action in {'start','stop'}:  #No payload actions
-            self.TOPIC2ACTION[msg.topic]()
-            status = 0 if action=='stop' else 1
-        else:
-            try:
-                payload = msg.payload
-                self.TOPIC2ACTION[msg.topic](payload)
-                status = payload
-            except Exception as e:
-                print(e.message)
-        if status:
-            self.client.publish(msg.topic+"/status", str(status) , 0)
+        print(msg.topic)
+        print(msg.payload)
+        try:
+            payload = msg.payload
+            self.TOPIC2ACTION[msg.topic](payload)
+            status = payload
+        except Exception as e:
+            print(e.message)
+        # TODO status
+        # if status:
+            # self.client.publish(msg.topic+"/status", str(status) , 0)
+            # resource = msg.topic.split('/')
