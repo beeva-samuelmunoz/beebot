@@ -6,7 +6,7 @@ from backends.aws_iot import AWS_IOT
 from config_local import PATH_DATA
 
 
-PATH_CERTS = PATH_DATA+'AWS_iot-client/'
+PATH_CERTS = PATH_DATA+'AWS_iot-beebot/'
 
 backend = AWS_IOT(
     body=Body(),
