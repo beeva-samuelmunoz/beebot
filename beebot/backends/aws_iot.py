@@ -58,6 +58,15 @@ class AWS_IOT:
             self.client.subscribe(topic, 1, self._msg_parser)
 
 
+    def loop(self):
+        while True:
+            time.sleep(0.05)
+
+
+    def stop(self):
+        self.client.disconnect()
+
+
     def _msg_parser(self, client_id, user_data, msg):
         action = msg.topic('/')[-1]
         status = None

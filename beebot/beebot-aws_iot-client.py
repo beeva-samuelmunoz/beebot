@@ -10,7 +10,7 @@ PATH_CERTS = PATH_DATA+'AWS_iot-client/'
 try:
     print("Press Ctrl-D to exit:")
     client = AWS_IOT(
-        client_id="awsrobot",
+        client_id="beebot-client",
         endpoint_host="ayfx1339oonle.iot.us-east-1.amazonaws.com",
         endpoint_port=8883,
         path_ca=PATH_CERTS+"VeriSign-Class 3-Public-Primary-Certification-Authority-G5.pem",
@@ -19,7 +19,7 @@ try:
     )
     Keyboard(client).loop()
 except Exception as e:
-    print(e.message)
+    print(e)
 finally:
     client.stop()
 print("Hasta la vista.")
