@@ -48,56 +48,40 @@ class AWS_IOT:
         print(ev)
         # Right arm
         if ev=='shoulder_right_down':
-            self.client.publish("beebot/shoulder_right", 10 , 0)
+            self.client.publish("beebot/shoulder_right", 10, 0)
         elif ev=='shoulder_right_up':
-            self.client.publish("beebot/shoulder_right", -10 , 0)
+            self.client.publish("beebot/shoulder_right", -10, 0)
         elif ev=='elbow_right_down':
-            self.client.publish("beebot/elbow_right", -10 , 0)
+            self.client.publish("beebot/elbow_right", -10, 0)
         elif ev=='elbow_right_up':
-            self.client.publish("beebot/elbow_right", -10 , 0)
-        # # Left arm
+            self.client.publish("beebot/elbow_right", -10, 0)
+        # Left arm
         elif ev=='shoulder_left_down':
-            self.client.publish("beebot/shoulder_left", -10 , 0)
+            self.client.publish("beebot/shoulder_left", -10, 0)
         elif ev=='shoulder_left_up':
-            self.client.publish("beebot/shoulder_left", 10 , 0)
+            self.client.publish("beebot/shoulder_left", 10, 0)
         elif ev=='elbow_left_down':
-            self.client.publish("beebot/elbow_left", -10 , 0)
+            self.client.publish("beebot/elbow_left", -10, 0)
         elif ev=='elbow_left_up':
-            self.client.publish("beebot/elbow_left", +10 , 0)
-        # # Platform
-        # elif ev=='platform_forward':
-        # elif ev=='platform_backward':
-        # elif ev=='platform_right':
-        # elif ev=='platform_left':
-        # # Head
-        # elif ev=='head_tilt_up':
-        # elif ev=='head_tilt_down':
-        # elif ev=='head_pan_right':
-        # elif ev=='head_pan_left':
-        # # Webcam
-        # elif ev=='camera_switch':
-        #     webcam = self.body.resources['webcam']
-        #     if webcam.is_playing:
-        #         webcam.stop()
-        #     else:
-        #         webcam.start()
-
-
-
-
-
-    # def _msg_parser(self, client_id, user_data, msg):
-    #     action = msg.topic('/')[-1]
-    #     status = None
-    #     if action in {'start','stop'}:  #No payload actions
-    #         self.TOPIC2ACTION[msg.topic]()
-    #         status = 0 if action=='stop' else 1
-    #     else:
-    #         try:
-    #             payload = float(msg.payload)
-    #             self.TOPIC2ACTION[msg.topic](payload)
-    #             status = payload
-    #         except Exception as e:
-    #             print(e.message)
-    #     if status:
-    #         self.client.publish(msg.topic+"/status", str(status) , 0)
+            self.client.publish("beebot/elbow_left", +10, 0)
+        # Platform
+        elif ev=='platform_forward':
+            self.client.publish("beebot/platform/forward", 0.1, 0)
+        elif ev=='platform_backward':
+            self.client.publish("beebot/platform/backward", 0.1, 0)
+        elif ev=='platform_right':
+            self.client.publish("beebot/platform/turn_right", 0.1, 0)
+        elif ev=='platform_left':
+            self.client.publish("beebot/platform/turn_left", 0.1, 0)
+        # Head
+        elif ev=='head_tilt_up':
+            self.client.publish("head_tilt", -10, 0)
+        elif ev=='head_tilt_down':
+            self.client.publish("head_tilt", 10, 0)
+        elif ev=='head_pan_right':
+            self.client.publish("beebot/head_pan", -10, 0)
+        elif ev=='head_pan_left':
+            self.client.publish("beebot/head_pan", 10, 0)
+        # Webcam
+        elif ev=='camera_switch':
+            self.client.publish("beebot/webcam/switch", 0, 0)

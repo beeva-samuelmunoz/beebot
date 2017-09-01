@@ -47,11 +47,10 @@ class AWS_IOT:
             "beebot/platform/turn_right": self.body.resources['platform'].turn_right,
             "beebot/platform/stop": self.body.resources['platform'].stop,
             # Head
-            "beebot/head_pan": self.body.resources['head_pan'].move,
-            "beebot/head_tilt": self.body.resources['head_tilt'].move,
+            "beebot/head_pan": self.body.resources['head_pan'].set_relative,
+            "beebot/head_tilt": self.body.resources['head_tilt'].set_relative,
             # Webcam
-            "beebot/webcam/start": self.body.resources['webcam'].start,
-            "beebot/webcam/stop": self.body.resources['webcam'].stop,
+            "beebot/webcam/switch": lambda x: self.body.resources['webcam'].switch,
         }
         # Actuators: subscribe to topics
         for topic in self.TOPIC2ACTION.keys():
@@ -71,11 +70,11 @@ class AWS_IOT:
         print(msg.topic)
         print(msg.payload)
         try:
-            payload = msg.payload
+            payload = float(msg.payload)
             self.TOPIC2ACTION[msg.topic](payload)
             status = payload
         except Exception as e:
-            print(e.message)
+            print(e)
         # TODO status
         # if status:
             # self.client.publish(msg.topic+"/status", str(status) , 0)

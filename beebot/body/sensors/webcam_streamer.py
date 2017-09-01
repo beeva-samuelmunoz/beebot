@@ -64,3 +64,11 @@ class WebcamStreamer(object):
             self.is_playing = False
             self.tstamp_play = None
             self.thread.stop()
+
+    def switch(self):
+        """Change state start/stop
+        """
+        if self.is_playing:
+            self.stop()
+        else:
+            self.start()

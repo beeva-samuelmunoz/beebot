@@ -51,8 +51,4 @@ class Local:
             self.body.resources['head_pan'].set_relative(+10, 0.1)
         # Webcam
         elif ev=='camera_switch':
-            webcam = self.body.resources['webcam']
-            if webcam.is_playing:
-                webcam.stop()
-            else:
-                webcam.start()
+            self.body.resources['webcam'].switch
