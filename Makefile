@@ -67,7 +67,7 @@ run-demo_day: ## Demo with servo movement.
 
 
 run-local-client: ## Controll the robot locally on a console
-	@$(PATH_VENV)'/bin/python' beebot/beebot-local.py
+	@$(PATH_VENV)'/bin/python' beebot/beebot-local-client.py
 
 
 run-aws_iot-backend: ## Run the Amazon Web Services IoT backend

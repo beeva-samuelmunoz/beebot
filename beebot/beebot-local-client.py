@@ -12,7 +12,7 @@ try:
     client = Local(body)
     Keyboard(client).loop()
 except Exception as e:
-    print(e.message)
+    print(e)
 finally:
     body.stop()
 print("Hasta la vista.")
