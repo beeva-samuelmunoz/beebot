@@ -2,13 +2,13 @@
 
 
 from body.body import Body
-from controllers.aws_iot import AWS_IOT
+from backends.aws_iot import AWS_IOT
 
 
-PATH_CERTS = '~/beebot/data/AWS_certs/'
+PATH_CERTS = '~/beebot/data/AWS_iot-beebot/'
 
 
-controller = AWS_IOT(
+backend = AWS_IOT(
     body=Body(),
     client_id="awsrobot",
     endpoint_host="ayfx1339oonle.iot.us-east-1.amazonaws.com",

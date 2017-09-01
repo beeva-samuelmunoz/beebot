@@ -59,23 +59,20 @@ install-bootup: ## Create files to start beebot on bootup  (root permissions).
 
 
 #
-### Backends (run on the robot).
+### Commands
 #
 
 run-demo_day: ## Demo with servo movement.
 	@$(PATH_VENV)'/bin/python' beebot/beebot-demo_day.py
 
 
-run-local: ## Controll the robot locally on a console
+run-local-client: ## Controll the robot locally on a console
 	@$(PATH_VENV)'/bin/python' beebot/beebot-local.py
 
 
-run-aws_iot: ## Run the Amazon Web Services IoT controller
+run-aws_iot-backend: ## Run the Amazon Web Services IoT backend
 	@$(PATH_VENV)'/bin/python' beebot/beebot-aws_iot.py
 
 
-#
-### Client
-#
-
-client-aws_iot: ## Client for AWS IoT
+run-aws_iot-client: ## Run the Amazon Web Services IoT client
+		@$(PATH_VENV)'/bin/python' beebot/beebot-aws_iot-client.py
