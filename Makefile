@@ -48,6 +48,9 @@ install-env: ## Create a running environment (virtualenv).
 	@ln -s $(PATH_PROJECT) $(PATH_VENV)'/'
 	# Link code to project library so it is in the PYTHONPATH
 	@ln -s $(PATH_LIBRARY) $(PATH_VENV)'/lib/python3.5/site-packages/'
+	# Create a local python config file pointing to the data directory
+	@mkdir $(PATH_PROJECT)'/data'
+	@echo "PATH_DATA='$(PATH_PROJECT)/data/'">$(PATH_LIBRARY)'/config_local.py'
 	@echo "Done"
 
 

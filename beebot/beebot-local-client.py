@@ -7,8 +7,9 @@ from controllers.keyboard import Keyboard
 
 
 try:
+    print("Initializing Beebot's body.")
     body = Body()
-    print("Press Ctrl-D to exit:")
+    print("I am alive!\nPress Ctrl-D to exit:")
     client = Local(body)
     Keyboard(client).loop()
 except Exception as e:

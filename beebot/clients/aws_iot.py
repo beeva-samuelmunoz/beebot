@@ -19,8 +19,15 @@ class AWS_IOT:
     ):
         # AWS IoT Client
         self.client = AWSIoTMQTTClient(client_id)
-        self.client.configureEndpoint(endpoint_host, endpoint_port)
-        self.client.configureCredentials(path_ca, path_key, path_cert)
+        self.client.configureEndpoint(
+            hostName=endpoint_host,
+            portNumber=endpoint_port
+        )
+        self.client.configureCredentials(
+            CAFilePath=path_ca,
+            KeyPath=path_key,
+            CertificatePath=path_cert
+        )
         self.client.configureOfflinePublishQueueing(queueSize=-1)  # Infinite
         self.client.configureDrainingFrequency(frequencyInHz=2)
         self.client.configureConnectDisconnectTimeout(timeoutSecond=10)
@@ -30,36 +37,44 @@ class AWS_IOT:
             maxReconnectQuietTimeSecond=25,
             stableConnectionTimeSecond=40
         )
+        self.client.connect(keepAliveIntervalSecond=60)
+
+
+    def stop(self):
+        self.client.disconnect()
 
 
     def event(self, ev):
+        print(ev)
         # Right arm
         if ev=='shoulder_right_down':
+            self.client.publish("beebot/shoulder_right", 10 , 0)
         elif ev=='shoulder_right_up':
-        elif ev=='elbow_right_down':
-        elif ev=='elbow_right_up':
-        # Left arm
-        elif ev=='shoulder_left_down':
-        elif ev=='shoulder_left_up':
-        elif ev=='elbow_left_down':
-        elif ev=='elbow_left_up':
-        # Platform
-        elif ev=='platform_forward':
-        elif ev=='platform_backward':
-        elif ev=='platform_right':
-        elif ev=='platform_left':
-        # Head
-        elif ev=='head_tilt_up':
-        elif ev=='head_tilt_down':
-        elif ev=='head_pan_right':
-        elif ev=='head_pan_left':
-        # Webcam
-        elif ev=='c':
-            webcam = self.body.resources['webcam']
-            if webcam.is_playing:
-                webcam.stop()
-            else:
-                webcam.start()
+            self.client.publish("beebot/shoulder_right", -10 , 0)
+        # elif ev=='elbow_right_down':
+        # elif ev=='elbow_right_up':
+        # # Left arm
+        # elif ev=='shoulder_left_down':
+        # elif ev=='shoulder_left_up':
+        # elif ev=='elbow_left_down':
+        # elif ev=='elbow_left_up':
+        # # Platform
+        # elif ev=='platform_forward':
+        # elif ev=='platform_backward':
+        # elif ev=='platform_right':
+        # elif ev=='platform_left':
+        # # Head
+        # elif ev=='head_tilt_up':
+        # elif ev=='head_tilt_down':
+        # elif ev=='head_pan_right':
+        # elif ev=='head_pan_left':
+        # # Webcam
+        # elif ev=='camera_switch':
+        #     webcam = self.body.resources['webcam']
+        #     if webcam.is_playing:
+        #         webcam.stop()
+        #     else:
+        #         webcam.start()
 
 
         # # Topic: Action

@@ -10,7 +10,7 @@ class Keyboard:
 
     def __init__(self, client):
         self.client = client
-        self.key2event = {
+        self.key2event = {  # Key mapping
             # Right arm
             'o': 'shoulder_right_up',
             'l': 'shoulder_right_down',

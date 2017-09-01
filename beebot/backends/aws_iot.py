@@ -31,13 +31,15 @@ class AWS_IOT:
             maxReconnectQuietTimeSecond=25,
             stableConnectionTimeSecond=40
         )
+        self.client.connect(keepAliveIntervalSecond=60)
+
         # Topic: Action
         self.TOPIC2ACTION = {  # MQTT actuator topics
             # Arms
-            "beebot/shoulder_right": self.body.resources['shoulder_right'].move,
-            "beebot/shoulder_left": self.body.resources['shoulder_left'].move,
-            "beebot/elbow_right": self.body.resources['elbow_right'].move,
-            "beebot/elbow_left": self.body.resources['elbow_left'].move,
+            "beebot/shoulder_right": self.body.resources['shoulder_right'].set_relative,
+            "beebot/shoulder_left": self.body.resources['shoulder_left'].set_relative,
+            "beebot/elbow_right": self.body.resources['elbow_right'].set_relative,
+            "beebot/elbow_left": self.body.resources['elbow_left'].set_relative,
             # Platform
             "beebot/platform/forward": self.body.resources['platform'].forward,
             "beebot/platform/backward": self.body.resources['platform'].backward,
@@ -64,7 +66,7 @@ class AWS_IOT:
             status = 0 if action=='stop' else 1
         else:
             try:
-                payload = float(msg.payload)
+                payload = msg.payload
                 self.TOPIC2ACTION[msg.topic](payload)
                 status = payload
             except Exception as e:
