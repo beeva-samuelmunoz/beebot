@@ -48,18 +48,18 @@ class AWS_IOT:
         print(ev)
         # Right arm
         if ev=='shoulder_right_down':
-            self.client.publish("beebot/shoulder_right", 10, 0)
+            self.client.publish("beebot/shoulder_right", +10, 0)
         elif ev=='shoulder_right_up':
             self.client.publish("beebot/shoulder_right", -10, 0)
         elif ev=='elbow_right_down':
-            self.client.publish("beebot/elbow_right", -10, 0)
+            self.client.publish("beebot/elbow_right", +10, 0)
         elif ev=='elbow_right_up':
             self.client.publish("beebot/elbow_right", -10, 0)
         # Left arm
         elif ev=='shoulder_left_down':
             self.client.publish("beebot/shoulder_left", -10, 0)
         elif ev=='shoulder_left_up':
-            self.client.publish("beebot/shoulder_left", 10, 0)
+            self.client.publish("beebot/shoulder_left", +10, 0)
         elif ev=='elbow_left_down':
             self.client.publish("beebot/elbow_left", -10, 0)
         elif ev=='elbow_left_up':
@@ -77,11 +77,11 @@ class AWS_IOT:
         elif ev=='head_tilt_up':
             self.client.publish("beebot/head_tilt", -10, 0)
         elif ev=='head_tilt_down':
-            self.client.publish("beebot/head_tilt", 10, 0)
+            self.client.publish("beebot/head_tilt", +10, 0)
         elif ev=='head_pan_right':
             self.client.publish("beebot/head_pan", -10, 0)
         elif ev=='head_pan_left':
-            self.client.publish("beebot/head_pan", 10, 0)
+            self.client.publish("beebot/head_pan", +10, 0)
         # Webcam
         elif ev=='camera_switch':
             self.client.publish("beebot/webcam/switch", 0, 0)
