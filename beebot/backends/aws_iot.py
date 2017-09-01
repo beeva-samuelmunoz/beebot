@@ -50,7 +50,7 @@ class AWS_IOT:
             "beebot/head_pan": self.body.resources['head_pan'].set_relative,
             "beebot/head_tilt": self.body.resources['head_tilt'].set_relative,
             # Webcam
-            "beebot/webcam/switch": lambda x: self.body.resources['webcam'].switch,
+            "beebot/webcam/switch": lambda x: self.body.resources['webcam'].switch(),
         }
         # Actuators: subscribe to topics
         for topic in self.TOPIC2ACTION.keys():

@@ -51,4 +51,4 @@ class Local:
             self.body.resources['head_pan'].set_relative(+10, 0.1)
         # Webcam
         elif ev=='camera_switch':
-            self.body.resources['webcam'].switch
+            self.body.resources['webcam'].switch()

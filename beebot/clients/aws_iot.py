@@ -75,9 +75,9 @@ class AWS_IOT:
             self.client.publish("beebot/platform/turn_left", 0.1, 0)
         # Head
         elif ev=='head_tilt_up':
-            self.client.publish("head_tilt", -10, 0)
+            self.client.publish("beebot/head_tilt", -10, 0)
         elif ev=='head_tilt_down':
-            self.client.publish("head_tilt", 10, 0)
+            self.client.publish("beebot/head_tilt", 10, 0)
         elif ev=='head_pan_right':
             self.client.publish("beebot/head_pan", -10, 0)
         elif ev=='head_pan_left':
