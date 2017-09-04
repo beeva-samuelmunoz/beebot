@@ -20,7 +20,6 @@ $(document).ready(function() {
     cognitoCredentials();
     init();
     animate();
-    enableGamePad();
 });
 
 $(window).keydown(function(e) {
@@ -44,6 +43,7 @@ button.addEventListener('pointerup', function(event) {
   })
   .catch(function(error) { console.log('error: '+error); });
 });
+
 function cognitoCredentials(){
   credentials.get(function(err) {
       if(err) {
@@ -72,54 +72,7 @@ function initMqttClient(requestUrl) {
         }
     };
     mqttClient.connect(connectOptions);
-}    
-
-function canGame() {
-    return "getGamepads" in navigator;
-}
-
-function reportOnGamepad() {
-    var gp = navigator.getGamepads()[0];
-    console.log("gamepad: ", gp);
-    for(var i=0;i<gp.buttons.length;i++) {
-      if(gp.buttons[i].pressed) console.log("button "+ (i+1) + "pressed.");
-    }
-    for(var i=0;i<gp.axes.length; i+=2) {
-       if(gp.axes[i].pressed) console.log("Stick "+(Math.ceil(i/2)+1)+": "+gp.axes[i]+","+gp.axes[i+1]);
-    }
-}
-
-function enableGamePad(){
-    if(canGame()) {
-        var prompt = "connect gamepad!";
-        $("#gamepadPrompt").text(prompt);
-
-        $(window).on("gamepadconnected", function() {
-            hasGP = true;
-            $("#gamepadPrompt").html("Gamepad connected!");
-            console.log("connection event");
-            repGP = window.setInterval(reportOnGamepad,100);
-        });
-
-        $(window).on("gamepaddisconnected", function() {
-            console.log("disconnection event");
-            $("#gamepadPrompt").text(prompt);
-            window.clearInterval(repGP);
-        });
-        var checkGP = window.setInterval(function() {
-            console.log('checkGP');
-            if(navigator.getGamepads()[0]) {
-                if(!hasGP) $(window).trigger("gamepadconnected");
-                window.clearInterval(checkGP);
-            }
-        }, 500);
-    }
-}
-
-function handleCharacteristicValueChanged(event) {
-  var value = event.target.value;
-  console.log('Received ' + value);
-}
+}   
 
 function publish(topic, message){
   var message = new Paho.MQTT.Message(message);
