@@ -1,14 +1,32 @@
-var camera, scene, renderer, mesh, mouse, controls, lenght, sphere, SUN, shipPosition,
-  width = window.innerWidth-10,
-  height = window.innerHeight-10;
+var camera, scene, renderer, mesh, mouse, controls, lenght, sphere, SUN, shipPosition, width = window.innerWidth-10,  height = window.innerHeight-10;
+
+var AWSCredentials;
 
 var clock = new THREE.Clock();
 var mouse = new THREE.Vector2();
 
 var button = document.getElementById('gamepadPrompt');
 
- var hasGP = false;
+var hasGP = false;
 var repGP;
+
+var AWSIoTData = require('aws-iot-device-sdk');
+
+const mqttClient = AWSIoTData.device({
+  region: AWS.config.region,
+  host: 'ayfx1339oonle.iot.eu-west-1.amazonaws.com',
+  clientId: 'beebot' + (Math.floor((Math.random() * 100000) + 1)),
+  protocol: 'wss',
+  debug:true,
+  accessKeyId: '',
+  secretKey: '',
+  sessionToken: ''
+});
+
+mqttClient.on('connect', console.log);
+mqttClient.on('reconnect', console.log);
+mqttClient.on('message', console.log);
+
 
 function canGame() {
     return "getGamepads" in navigator;
@@ -16,20 +34,79 @@ function canGame() {
 
 function reportOnGamepad() {
     var gp = navigator.getGamepads()[0];
-
     for(var i=0;i<gp.buttons.length;i++) {
         
         if(gp.buttons[i].pressed) console.log("button "+ (i+1) + "pressed.");
     }
-
     for(var i=0;i<gp.axes.length; i+=2) {
        if(gp.axes[i].pressed) console.log("Stick "+(Math.ceil(i/2)+1)+": "+gp.axes[i]+","+gp.axes[i+1]);
     }
 }
 
 $(document).ready(function() {
+    cognitoCredentials();
     init();
     animate();
+    enableGamePad();
+});
+
+$(window).keydown(function(e) {
+
+  console.log(e.keyCode);
+   /*switch (e.keyCode) {
+        case 37: input.left = true; break;                            
+        case 39: input.right = true; break;                            
+   } */
+});
+
+button.addEventListener('pointerup', function(event) {
+    navigator.bluetooth.requestDevice({
+    filters: [{
+      services: ['heart_rate']
+    }]
+  })
+  .then(function(device){ console.log(device.name); return device.gatt.connect();})
+  .then(function(server){ server.getPrimaryService('heart_rate');})
+  .then(function(service){ service.getCharacteristic('heart_rate_measurement');})
+  .then(function(characteristic){characteristic.startNotifications();}) 
+  .then(function(characteristic){
+    characteristic.addEventListener('characteristicvaluechanged',
+                                    handleCharacteristicValueChanged);
+    console.log('Notifications have been started.');
+  })
+  .catch(function(error) { console.log('error: '+error); });
+});
+
+function cognitoCredentials(){
+    // Initialize the Amazon Cognito credentials provider
+    AWS.config.region = "eu-west-1"; // Region
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+       IdentityPoolId: "eu-west-1:f6975d85-1a05-4d0a-9c60-d4bbbdb06c45",
+    });
+
+    AWS.config.credentials.get(function(err){
+      console.log(err);
+      console.log("Cognito Identity Id: " + AWS.config.credentials.identityId);
+
+      var params = {
+        IdentityId: AWS.config.credentials.identityId
+      };
+      
+      var cognitoidentity = new AWS.CognitoIdentity();
+
+      cognitoidentity.getCredentialsForIdentity(params, function(err, data) {
+        if (err) console.log(err, err.stack); // an error occurred
+        else     { console.log(data);  AWSCredentials = data; }          // successful response
+        mqttClient.updateWebSocketCredentials(data.Credentials.AccessKeyId,
+               data.Credentials.SecretKey,
+               data.Credentials.SessionToken);
+        //mqttClient.publish('mensajes', 'TUCK FYOU EER YCH');
+
+      });
+  });
+}
+
+function enableGamePad(){
     if(canGame()) {
 
         var prompt = "To begin using your gamepad, connect it and press any button!";
@@ -57,35 +134,7 @@ $(document).ready(function() {
             }
         }, 500);
     }
-
-});
-
-$(window).keydown(function(e) {
-
-  console.log(e.keyCode);
-   /*switch (e.keyCode) {
-        case 37: input.left = true; break;                            
-        case 39: input.right = true; break;                            
-   } */
-});
-
-button.addEventListener('pointerup', function(event) {
-    navigator.bluetooth.requestDevice({
-    filters: [{
-      services: ['heart_rate']
-    }]
-  })
-  .then(function(device){ console.log(device.name); return device.gatt.connect();})
-  .then(function(server){ server.getPrimaryService('heart_rate');})
-  .then(function(service){ service.getCharacteristic('heart_rate_measurement');})
-  .then(function(characteristic){characteristic.startNotifications();}) 
-  .then(function(characteristic){
-      characteristic.addEventListener('characteristicvaluechanged',
-                                      handleCharacteristicValueChanged);
-      console.log('Notifications have been started.');
-    })
-  .catch(function(error) { console.log('error: '+error); });
-});
+}
 
 function handleCharacteristicValueChanged(event) {
   var value = event.target.value;
