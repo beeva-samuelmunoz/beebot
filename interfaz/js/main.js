@@ -10,9 +10,9 @@ var button = document.getElementById('gamepadPrompt');
 var hasGP = false;
 var repGP;
 
-AWS.config.region = 'eu-west-1';
+AWS.config.region = 'us-east-1';
 var credentials = new AWS.CognitoIdentityCredentials({
-    IdentityPoolId: 'eu-west-1:f6975d85-1a05-4d0a-9c60-d4bbbdb06c45',
+    IdentityPoolId: 'us-east-1:a35616a1-15de-490d-9fa6-fbb00d3f08b6',
 });
 var mqttClient;
 
@@ -71,8 +71,8 @@ function cognitoCredentials(){
           console.log(err);
           return;
       }
-      var requestUrl = SigV4Utils.getSignedUrl('wss', 'ayfx1339oonle.iot.eu-west-1.amazonaws.com', '/mqtt',
-          'iotdevicegateway', 'eu-west-1',
+      var requestUrl = SigV4Utils.getSignedUrl('wss', 'ayfx1339oonle.iot.us-east-1.amazonaws.com', '/mqtt',
+          'iotdevicegateway', 'us-east-1',
           credentials.accessKeyId, credentials.secretAccessKey, credentials.sessionToken);
       initMqttClient(requestUrl);
   });
