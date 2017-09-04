@@ -10,9 +10,9 @@ var button = document.getElementById('gamepadPrompt');
 var hasGP = false;
 var repGP;
 
-AWS.config.region = 'eu-west-1';
+AWS.config.region = 'us-east-1';
 var credentials = new AWS.CognitoIdentityCredentials({
-    IdentityPoolId: 'eu-west-1:f6975d85-1a05-4d0a-9c60-d4bbbdb06c45',
+    IdentityPoolId: 'us-east-1:a35616a1-15de-490d-9fa6-fbb00d3f08b6',
 });
 var mqttClient;
 
@@ -44,15 +44,43 @@ button.addEventListener('pointerup', function(event) {
   })
   .catch(function(error) { console.log('error: '+error); });
 });
+function cognitoCredentials(){
+  credentials.get(function(err) {
+      if(err) {
+          console.log(err);
+          return;
+      }
+      var requestUrl = SigV4Utils.getSignedUrl('wss', 'ayfx1339oonle.iot.us-east-1.amazonaws.com', '/mqtt',
+          'iotdevicegateway', 'us-east-1',
+          credentials.accessKeyId, credentials.secretAccessKey, credentials.sessionToken);
+      initMqttClient(requestUrl);
+  });
+}
 
+function initMqttClient(requestUrl) {
+    var clientId = 'beebot' + String(Math.random()).replace('.', '');
+    mqttClient = new Paho.MQTT.Client(requestUrl, clientId);
+    var connectOptions = {
+        onSuccess: function () {
+            console.log('connected');
+        },
+        useSSL: true,
+        timeout: 3,
+        mqttVersion: 4,
+        onFailure: function () {
+            console.error('connect failed');
+        }
+    };
+    mqttClient.connect(connectOptions);
+}    
 
 function canGame() {
     return "getGamepads" in navigator;
 }
 
 function reportOnGamepad() {
-    console.log("gamepad interval on");
     var gp = navigator.getGamepads()[0];
+    console.log("gamepad: ", gp);
     for(var i=0;i<gp.buttons.length;i++) {
       if(gp.buttons[i].pressed) console.log("button "+ (i+1) + "pressed.");
     }
@@ -91,36 +119,6 @@ function enableGamePad(){
 function handleCharacteristicValueChanged(event) {
   var value = event.target.value;
   console.log('Received ' + value);
-}
-
-function cognitoCredentials(){
-  credentials.get(function(err) {
-      if(err) {
-          console.log(err);
-          return;
-      }
-      var requestUrl = SigV4Utils.getSignedUrl('wss', 'ayfx1339oonle.iot.eu-west-1.amazonaws.com', '/mqtt',
-          'iotdevicegateway', 'eu-west-1',
-          credentials.accessKeyId, credentials.secretAccessKey, credentials.sessionToken);
-      initMqttClient(requestUrl);
-  });
-}
-
-function initMqttClient(requestUrl) {
-    var clientId = 'beebot' + String(Math.random()).replace('.', '');
-    mqttClient = new Paho.MQTT.Client(requestUrl, clientId);
-    var connectOptions = {
-        onSuccess: function () {
-            console.log('connected');
-        },
-        useSSL: true,
-        timeout: 3,
-        mqttVersion: 4,
-        onFailure: function () {
-            console.error('connect failed');
-        }
-    };
-    mqttClient.connect(connectOptions);
 }
 
 function publish(topic, message){
