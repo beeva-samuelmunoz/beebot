@@ -16,21 +16,6 @@ var credentials = new AWS.CognitoIdentityCredentials({
 });
 var mqttClient;
 
-function canGame() {
-    return "getGamepads" in navigator;
-}
-
-function reportOnGamepad() {
-    var gp = navigator.getGamepads()[0];
-    for(var i=0;i<gp.buttons.length;i++) {
-
-        if(gp.buttons[i].pressed) console.log("button "+ (i+1) + "pressed.");
-    }
-    for(var i=0;i<gp.axes.length; i+=2) {
-       if(gp.axes[i].pressed) console.log("Stick "+(Math.ceil(i/2)+1)+": "+gp.axes[i]+","+gp.axes[i+1]);
-    }
-}
-
 $(document).ready(function() {
     cognitoCredentials();
     init();
@@ -39,12 +24,7 @@ $(document).ready(function() {
 });
 
 $(window).keydown(function(e) {
-
   console.log(e.keyCode);
-   /*switch (e.keyCode) {
-        case 37: input.left = true; break;
-        case 39: input.right = true; break;
-   } */
 });
 
 button.addEventListener('pointerup', function(event) {
@@ -64,6 +44,54 @@ button.addEventListener('pointerup', function(event) {
   })
   .catch(function(error) { console.log('error: '+error); });
 });
+
+
+function canGame() {
+    return "getGamepads" in navigator;
+}
+
+function reportOnGamepad() {
+    console.log("gamepad interval on");
+    var gp = navigator.getGamepads()[0];
+    for(var i=0;i<gp.buttons.length;i++) {
+      if(gp.buttons[i].pressed) console.log("button "+ (i+1) + "pressed.");
+    }
+    for(var i=0;i<gp.axes.length; i+=2) {
+       if(gp.axes[i].pressed) console.log("Stick "+(Math.ceil(i/2)+1)+": "+gp.axes[i]+","+gp.axes[i+1]);
+    }
+}
+
+function enableGamePad(){
+    if(canGame()) {
+        var prompt = "connect gamepad!";
+        $("#gamepadPrompt").text(prompt);
+
+        $(window).on("gamepadconnected", function() {
+            hasGP = true;
+            $("#gamepadPrompt").html("Gamepad connected!");
+            console.log("connection event");
+            repGP = window.setInterval(reportOnGamepad,100);
+        });
+
+        $(window).on("gamepaddisconnected", function() {
+            console.log("disconnection event");
+            $("#gamepadPrompt").text(prompt);
+            window.clearInterval(repGP);
+        });
+        var checkGP = window.setInterval(function() {
+            console.log('checkGP');
+            if(navigator.getGamepads()[0]) {
+                if(!hasGP) $(window).trigger("gamepadconnected");
+                window.clearInterval(checkGP);
+            }
+        }, 500);
+    }
+}
+
+function handleCharacteristicValueChanged(event) {
+  var value = event.target.value;
+  console.log('Received ' + value);
+}
 
 function cognitoCredentials(){
   credentials.get(function(err) {
@@ -93,50 +121,12 @@ function initMqttClient(requestUrl) {
         }
     };
     mqttClient.connect(connectOptions);
-
 }
 
 function publish(topic, message){
   var message = new Paho.MQTT.Message(message);
   message.destinationName = topic;
   mqttClient.send(message);
-}
-
-function enableGamePad(){
-    if(canGame()) {
-
-        var prompt = "To begin using your gamepad, connect it and press any button!";
-        $("#gamepadPrompt").text(prompt);
-
-        $(window).on("gamepadconnected", function() {
-            hasGP = true;
-            $("#gamepadPrompt").html("Gamepad connected!");
-            console.log("connection event");
-            repGP = window.setInterval(reportOnGamepad,100);
-        });
-
-        $(window).on("gamepaddisconnected", function() {
-            console.log("disconnection event");
-            $("#gamepadPrompt").text(prompt);
-            window.clearInterval(repGP);
-        });
-
-        //setup an interval for Chrome
-        var checkGP = window.setInterval(function() {
-            console.log('checkGP');
-            if(navigator.getGamepads()[0]) {
-                if(!hasGP) $(window).trigger("gamepadconnected");
-                window.clearInterval(checkGP);
-            }
-        }, 500);
-    }
-}
-
-function handleCharacteristicValueChanged(event) {
-  var value = event.target.value;
-  console.log('Received ' + value);
-  // TODO: Parse Heart Rate Measurement value.
-  // See https://github.com/WebBluetoothCG/demos/blob/gh-pages/heart-rate-sensor/heartRateSensor.js
 }
 
 function init(data) {
