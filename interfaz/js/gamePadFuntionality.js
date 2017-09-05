@@ -33,8 +33,14 @@ function pollGamepads() {
 
       gamepadInfo.innerHTML = "Gamepad inside connected at index " + gp.index + ": " + gp.id +
             ". It has " + gp.buttons.length + " buttons and " + gp.axes.length + " axes."; 
+
+      gamepadIndex = gp.index;
+      console.log("Gamepad inside connected at index " + gp.index + ": " + gp.id +
+      ". It has " + gp.buttons.length + " buttons and " + gp.axes.length + " axes.");
+      gameLoop();
+      clearInterval(interval);
 	    
-	    if (gp) {
+	    /*if (gp) {
 	    	if( gamepads[i].id.substring(0, 3) != "Unk"){
 	    		  gamepadIndex = gp.index;
 		      	console.log("Gamepad inside connected at index " + gp.index + ": " + gp.id +
@@ -42,7 +48,7 @@ function pollGamepads() {
 		      	gameLoop();
 		      	clearInterval(interval);
 	    	}
-	    }
+	    }*/
   	}
 }
 
