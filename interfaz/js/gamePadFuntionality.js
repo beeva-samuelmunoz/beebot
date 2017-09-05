@@ -86,7 +86,7 @@ function gameLoop() {
 
   var gamepads = navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads : []);
 
-  gamepadInfo.innerHTML = "inside gameLoop lel " + gamepads[0].buttons[0].pressed; 
+  gamepadInfo.innerHTML = "inside gameLoop lol " + gamepads[0].buttons[0].pressed; 
 
   if (!gamepads) {
     return;
@@ -111,5 +111,5 @@ function gameLoop() {
     gamepadInfo.innerHTML = "button 4 pressed!";
     publish("beebot/shoulder_left", "+10");
   }
-  setInterval(gameLoop, 200);
+  window.requestAnimationFrame(gameLoop);
 }
