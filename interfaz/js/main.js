@@ -105,7 +105,8 @@ function init(data) {
 
   starSystem();
 
-  var Texture = new THREE.TextureLoader().load( "http://172.24.1.134:18223" );
+  //var Texture = new THREE.TextureLoader().load( "http://172.24.1.134:18223" );
+  var Texture = new THREE.TextureLoader().load( "images/sun.jpg" );
   var material = new THREE.MeshBasicMaterial( { color: 0xffff00, map: Texture } );
 
   var SUNgeometry = new THREE.SphereGeometry( 30, 32, 32, 0, 6.3 );
