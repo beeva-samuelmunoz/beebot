@@ -1,13 +1,15 @@
 
 var interval, b = 0;
 
+var start;
+
 var gamepadIndex = 0;
 
 var gamepadInfo = document.getElementById("gamepadPrompt");
 
 gamepadInfo.innerHTML = "searching gamepad";
 
-$(window).keydown(function(e) {
+/*$(window).keydown(function(e) {
   console.log(e.keyCode);
 });
 
@@ -27,7 +29,7 @@ button.addEventListener('pointerup', function(event) {
     console.log('Notifications have been started.');
   })
   .catch(function(error) { console.log('error: '+error); });
-});
+});*/
 
 window.addEventListener("gamepadconnected", function(e) {
   var gp = navigator.getGamepads()[e.gamepad.index];
@@ -44,6 +46,7 @@ window.addEventListener("gamepaddisconnected", function(e) {
 if (!('ongamepadconnected' in window)) {
   // No gamepad events available, poll instead.
   gamepadInfo.innerHTML = "founded";
+  console.log("no device");
   interval = setInterval(pollGamepads, 500);
 }
 
@@ -53,7 +56,7 @@ function pollGamepads() {
 
 	    var gp = gamepads[i];
 
-      gamepadInfo.innerHTML = "Gamepad pollGamepads connected at index " + gp.index + ": " + gp.id +
+      /*gamepadInfo.innerHTML = "Gamepad pollGamepads connected at index " + gp.index + ": " + gp.id +
             ". It has " + gp.buttons.length + " buttons and " + gp.axes.length + " axes."; 
 
       gamepadIndex = gp.index;
@@ -61,9 +64,9 @@ function pollGamepads() {
       console.log("Gamepad inside connected at index " + gp.index + ": " + gp.id +
       ". It has " + gp.buttons.length + " buttons and " + gp.axes.length + " axes.");
       gameLoop();
-      clearInterval(interval);
+      clearInterval(interval);*/
 	    
-	    /*if (gp) {
+	    if (gp) {
 	    	if( gamepads[i].id.substring(0, 3) != "Unk"){
 	    		  gamepadIndex = gp.index;
 		      	console.log("Gamepad inside connected at index " + gp.index + ": " + gp.id +
@@ -71,7 +74,7 @@ function pollGamepads() {
 		      	gameLoop();
 		      	clearInterval(interval);
 	    	}
-	    }*/
+	    }
   	}
 }
 
@@ -111,5 +114,5 @@ function gameLoop() {
     gamepadInfo.innerHTML = "button 4 pressed!";
     publish("beebot/shoulder_left", "+10");
   }
-  window.requestAnimationFrame(gameLoop);
+  start = requestAnimationFrame(gameLoop);
 }
