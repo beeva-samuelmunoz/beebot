@@ -31,7 +31,8 @@ function pollGamepads() {
 
 	    var gp = gamepads[i];
 
-      gamepadInfo.innerHTML = "Gamepad " + gp.index; 
+      gamepadInfo.innerHTML = "Gamepad inside connected at index " + gp.index + ": " + gp.id +
+            ". It has " + gp.buttons.length + " buttons and " + gp.axes.length + " axes."; 
 	    
 	    if (gp) {
 	    	if( gamepads[i].id.substring(0, 3) != "Unk"){
