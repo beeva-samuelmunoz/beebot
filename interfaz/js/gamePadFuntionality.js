@@ -64,7 +64,7 @@ function gameLoop() {
 
   var gamepads = navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads : []);
 
-  gamepadInfo.innerHTML = "inside gameLoop lol " + gamepads; 
+  gamepadInfo.innerHTML = "inside gameLoop lol " + gamepads[0].buttons[0]; 
 
   if (!gamepads) {
     return;
