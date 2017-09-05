@@ -77,13 +77,16 @@ function gameLoop() {
     publish("beebot/shoulder_right", "+10");
   } else if (buttonPressed(gp.buttons[2])) {
     console.log("button 3 pressed!");
+    gamepadInfo.innerHTML = "button 2 pressed!";
     publish("beebot/shoulder_right", "-10");
   }
   if (buttonPressed(gp.buttons[1])) {
     console.log("button 2 pressed!");
+    gamepadInfo.innerHTML = "button 3 pressed!";
     publish("beebot/shoulder_left", "-10");
   } else if (buttonPressed(gp.buttons[3])) {
     console.log("button 4 pressed!");
+    gamepadInfo.innerHTML = "button 4 pressed!";
     publish("beebot/shoulder_left", "+10");
   }
   window.requestAnimationFrame(gameLoop);
