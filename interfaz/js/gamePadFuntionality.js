@@ -7,6 +7,28 @@ var gamepadInfo = document.getElementById("gamepadPrompt");
 
 gamepadInfo.innerHTML = "searching gamepad";
 
+$(window).keydown(function(e) {
+  console.log(e.keyCode);
+});
+
+button.addEventListener('pointerup', function(event) {
+    navigator.bluetooth.requestDevice({
+    filters: [{
+      services: ['heart_rate']
+    }]
+  })
+  .then(function(device){ console.log(device.name); return device.gatt.connect();})
+  .then(function(server){ server.getPrimaryService('heart_rate');})
+  .then(function(service){ service.getCharacteristic('heart_rate_measurement');})
+  .then(function(characteristic){characteristic.startNotifications();})
+  .then(function(characteristic){
+    characteristic.addEventListener('characteristicvaluechanged',
+                                    handleCharacteristicValueChanged);
+    console.log('Notifications have been started.');
+  })
+  .catch(function(error) { console.log('error: '+error); });
+});
+
 window.addEventListener("gamepadconnected", function(e) {
   var gp = navigator.getGamepads()[e.gamepad.index];
   console.log("Gamepad connected at index " + gp.index + ": " + gp.id + ". It has " + gp.buttons.length + " buttons and " + gp.axes.length + " axes.");
@@ -89,5 +111,5 @@ function gameLoop() {
     gamepadInfo.innerHTML = "button 4 pressed!";
     publish("beebot/shoulder_left", "+10");
   }
-  window.requestAnimationFrame(gameLoop);
+  setInterval(gameLoop, 200);
 }
