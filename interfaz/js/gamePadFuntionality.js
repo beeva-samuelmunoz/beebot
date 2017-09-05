@@ -35,6 +35,7 @@ function pollGamepads() {
             ". It has " + gp.buttons.length + " buttons and " + gp.axes.length + " axes."; 
 
       gamepadIndex = gp.index;
+
       console.log("Gamepad inside connected at index " + gp.index + ": " + gp.id +
       ". It has " + gp.buttons.length + " buttons and " + gp.axes.length + " axes.");
       gameLoop();
@@ -60,6 +61,9 @@ function buttonPressed(b) {
 }
 
 function gameLoop() {
+
+  gamepadInfo.innerHTML = "inside gameLoop"; 
+
   var gamepads = navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads : []);
   if (!gamepads) {
     return;
