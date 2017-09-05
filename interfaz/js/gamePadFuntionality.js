@@ -62,7 +62,7 @@ function buttonPressed(b) {
 
 function gameLoop() {
 
-  gamepadInfo.innerHTML = "inside gameLoop"; 
+  gamepadInfo.innerHTML = "inside gameLoop" + gamepadIndex; 
 
   var gamepads = navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads : []);
   if (!gamepads) {
