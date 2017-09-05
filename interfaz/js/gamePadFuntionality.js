@@ -5,6 +5,8 @@ var gamepadIndex = 0;
 
 var gamepadInfo = document.getElementById("gamepadPrompt");
 
+gamepadInfo.innerHTML = "searching gamepad";
+
 window.addEventListener("gamepadconnected", function(e) {
   var gp = navigator.getGamepads()[e.gamepad.index];
   console.log("Gamepad connected at index " + gp.index + ": " + gp.id + ". It has " + gp.buttons.length + " buttons and " + gp.axes.length + " axes.");
@@ -18,6 +20,7 @@ window.addEventListener("gamepaddisconnected", function(e) {
 
 if (!('ongamepadconnected' in window)) {
   // No gamepad events available, poll instead.
+  gamepadInfo.innerHTML = "founded";
   interval = setInterval(pollGamepads, 500);
 }
 
@@ -27,7 +30,7 @@ function pollGamepads() {
 
 	    var gp = gamepads[i];
 
-      gamepadInfo.innerHTML = "Gamepad connected at index " + gp.index; 
+      gamepadInfo.innerHTML = "Gamepad " + gp.index; 
 	    
 	    if (gp) {
 	    	if( gamepads[i].id.substring(0, 3) != "Unk"){
