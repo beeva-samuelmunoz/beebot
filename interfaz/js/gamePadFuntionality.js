@@ -3,6 +3,8 @@ var interval, b = 0;
 
 var gamepadIndex = 0;
 
+var gamepadInfo = document.getElementById("gamepadPrompt");
+
 window.addEventListener("gamepadconnected", function(e) {
   var gp = navigator.getGamepads()[e.gamepad.index];
   console.log("Gamepad connected at index " + gp.index + ": " + gp.id + ". It has " + gp.buttons.length + " buttons and " + gp.axes.length + " axes.");
@@ -24,6 +26,8 @@ function pollGamepads() {
 	for (var i = 0; i < gamepads.length; i++) {
 
 	    var gp = gamepads[i];
+
+      gamepadInfo.innerHTML = "Gamepad connected at index " + gp.index; 
 	    
 	    if (gp) {
 	    	if( gamepads[i].id.substring(0, 3) != "Unk"){
@@ -53,6 +57,7 @@ function gameLoop() {
   console.log(gp);
   if (buttonPressed(gp.buttons[0])) {
     console.log("button 1 pressed!");
+    gamepadInfo.innerHTML = "button 1 pressed!";
     publish("beebot/shoulder_right", "+10");
   } else if (buttonPressed(gp.buttons[2])) {
     console.log("button 3 pressed!");

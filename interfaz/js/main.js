@@ -10,6 +10,8 @@ var button = document.getElementById('gamepadPrompt');
 var hasGP = false;
 var repGP;
 
+var gamepadInfo = document.getElementById("gamepadPrompt");
+
 AWS.config.region = 'us-east-1';
 var credentials = new AWS.CognitoIdentityCredentials({
     IdentityPoolId: 'us-east-1:a35616a1-15de-490d-9fa6-fbb00d3f08b6',
