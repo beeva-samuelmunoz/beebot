@@ -126,6 +126,110 @@ function gameLoop() {
     gamepadInfo.innerHTML = "button 4 pressed! " + botComand.part + " - " + botComand.grades;
     //publish("beebot/shoulder_left", "+10");
   }
+
+  else if (buttonPressed(gp.buttons[4])) {
+    console.log("button 4 pressed! " + botComand.part + " - " + botComand.grades);
+    botComand.part = "beebot/shoulder_left";
+    if(botComand.grades < 180) botComand.grades += 1;
+    gamepadInfo.innerHTML = "button 4 pressed! " + botComand.part + " - " + botComand.grades;
+    //publish("beebot/shoulder_left", "+10");
+  }
+
+  else if (buttonPressed(gp.buttons[5])) {
+    console.log("button 4 pressed! " + botComand.part + " - " + botComand.grades);
+    botComand.part = "beebot/shoulder_left";
+    if(botComand.grades < 180) botComand.grades += 1;
+    gamepadInfo.innerHTML = "button 4 pressed! " + botComand.part + " - " + botComand.grades;
+    //publish("beebot/shoulder_left", "+10");
+  }
+
+  else if (buttonPressed(gp.buttons[6])) {
+    console.log("button 4 pressed! " + botComand.part + " - " + botComand.grades);
+    botComand.part = "beebot/shoulder_left";
+    if(botComand.grades < 180) botComand.grades += 1;
+    gamepadInfo.innerHTML = "button 4 pressed! " + botComand.part + " - " + botComand.grades;
+    //publish("beebot/shoulder_left", "+10");
+  }
+
+  else if (buttonPressed(gp.buttons[7])) {
+    console.log("button 4 pressed! " + botComand.part + " - " + botComand.grades);
+    botComand.part = "beebot/shoulder_left";
+    if(botComand.grades < 180) botComand.grades += 1;
+    gamepadInfo.innerHTML = "button 4 pressed! " + botComand.part + " - " + botComand.grades;
+    //publish("beebot/shoulder_left", "+10");
+  }
+
+  else if (buttonPressed(gp.buttons[8])) {
+    console.log("button 4 pressed! " + botComand.part + " - " + botComand.grades);
+    botComand.part = "beebot/shoulder_left";
+    if(botComand.grades < 180) botComand.grades += 1;
+    gamepadInfo.innerHTML = "button 4 pressed! " + botComand.part + " - " + botComand.grades;
+    //publish("beebot/shoulder_left", "+10");
+  }
+
+  else if (buttonPressed(gp.buttons[9])) {
+    console.log("button 4 pressed! " + botComand.part + " - " + botComand.grades);
+    botComand.part = "beebot/shoulder_left";
+    if(botComand.grades < 180) botComand.grades += 1;
+    gamepadInfo.innerHTML = "button 4 pressed! " + botComand.part + " - " + botComand.grades;
+    //publish("beebot/shoulder_left", "+10");
+  }
+
+  else if (buttonPressed(gp.buttons[10])) {
+    console.log("button 4 pressed! " + botComand.part + " - " + botComand.grades);
+    botComand.part = "beebot/shoulder_left";
+    if(botComand.grades < 180) botComand.grades += 1;
+    gamepadInfo.innerHTML = "button 4 pressed! " + botComand.part + " - " + botComand.grades;
+    //publish("beebot/shoulder_left", "+10");
+  }
+
+  else if (buttonPressed(gp.buttons[11])) {
+    console.log("button 4 pressed! " + botComand.part + " - " + botComand.grades);
+    botComand.part = "beebot/shoulder_left";
+    if(botComand.grades < 180) botComand.grades += 1;
+    gamepadInfo.innerHTML = "button 4 pressed! " + botComand.part + " - " + botComand.grades;
+    //publish("beebot/shoulder_left", "+10");
+  }
+
+  else if (buttonPressed(gp.buttons[12])) {
+    console.log("button 4 pressed! " + botComand.part + " - " + botComand.grades);
+    botComand.part = "beebot/shoulder_left";
+    if(botComand.grades < 180) botComand.grades += 1;
+    gamepadInfo.innerHTML = "button 4 pressed! " + botComand.part + " - " + botComand.grades;
+    //publish("beebot/shoulder_left", "+10");
+  }
+
+  else if (buttonPressed(gp.buttons[13])) {
+    console.log("button 4 pressed! " + botComand.part + " - " + botComand.grades);
+    botComand.part = "beebot/shoulder_left";
+    if(botComand.grades < 180) botComand.grades += 1;
+    gamepadInfo.innerHTML = "button 4 pressed! " + botComand.part + " - " + botComand.grades;
+    //publish("beebot/shoulder_left", "+10");
+  }
+
+  else if (buttonPressed(gp.buttons[14])) {
+    console.log("button 4 pressed! " + botComand.part + " - " + botComand.grades);
+    botComand.part = "beebot/shoulder_left";
+    if(botComand.grades < 180) botComand.grades += 1;
+    gamepadInfo.innerHTML = "button 4 pressed! " + botComand.part + " - " + botComand.grades;
+    //publish("beebot/shoulder_left", "+10");
+  }
+
+  else if (buttonPressed(gp.buttons[15])) {
+    console.log("button 4 pressed! " + botComand.part + " - " + botComand.grades);
+    botComand.part = "beebot/shoulder_left";
+    if(botComand.grades < 180) botComand.grades += 1;
+    gamepadInfo.innerHTML = "button 4 pressed! " + botComand.part + " - " + botComand.grades;
+    //publish("beebot/shoulder_left", "+10");
+  }
+
+  else if (buttonPressed(gp.buttons[16])) {
+    console.log("button 4 pressed! " + botComand.part + " - " + botComand.grades);
+    botComand.part = "beebot/shoulder_left";
+    if(botComand.grades < 180) botComand.grades += 1;
+    gamepadInfo.innerHTML = "button 4 pressed! " + botComand.part + " - " + botComand.grades;
+    //publish("beebot/shoulder_left", "+10");
+  }
   else {
     gamepadInfo.innerHTML = "no buttons pressed " + botComand.part + " - " + botComand.grades; 
     console.log("values: " + botComand.part + " - " + botComand.grades);
@@ -134,4 +238,3 @@ function gameLoop() {
   }
   start = requestAnimationFrame(gameLoop);
 }
-
