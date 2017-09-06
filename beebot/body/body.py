@@ -119,8 +119,8 @@ class Body:
         TEMPERATURE/HUMIDITY SENSOR
             DHT11
         """
-        self.resources['temp_hum'] = DHT11(pin=4)
-        self.resources['temp_hum'].stop = lambda : None  # Dummy function
+        self.resources['dht11'] = DHT11(pin=4)
+        self.resources['dht11'].stop = lambda : None  # Dummy function
 
 
     def stop(self):
