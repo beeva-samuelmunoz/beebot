@@ -1,7 +1,7 @@
 
 var interval, b = 0;
 
-var start, gameLoopCounter = 0;
+var start;
 
 var botComand = {
   part: '',
@@ -93,12 +93,15 @@ function gameLoop() {
 
   var gamepads = navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads : []);
 
-  gamepadInfo.innerHTML	+= "get into gameLoop";	
+ 	
 	
   if (!gamepads) {
     return;
   }
   var gp = gamepads[gamepadIndex];
+	
+   gamepadInfo.innerHTML += "get into gameLoop" + gp.buttons[0].pressed;	
+	
   if (buttonPressed(gp.buttons[0])) {
     console.log("button 1 pressed! " + botComand.part + " - " + botComand.grades);
     botComand.part = "beebot/shoulder_right";
@@ -232,9 +235,8 @@ function gameLoop() {
     gamepadInfo.innerHTML = "button 4 pressed! " + botComand.part + " - " + botComand.grades;
     //publish("beebot/shoulder_left", "+10");
   }
-  else {
-    gameLoopCounter += 1;	  
-    gamepadInfo.innerHTML = "no buttons pressed " + gameLoopCounter; 
+  else {	  
+    //gamepadInfo.innerHTML = "no buttons pressed " + gameLoopCounter; 
     console.log("values: " + botComand.part + " - " + botComand.grades);
     botComand.part = '';
     botComand.grades = 0;
