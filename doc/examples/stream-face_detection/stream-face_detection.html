@@ -31,7 +31,7 @@ Launch a VLC streaming session with:
 <pre>cvlc --no-audio v4l2:///dev/video0:width=800:height=60--v4l2-fps 30 --sout "#transcode{vcodec=MJPG,vb=1600,fps=10}:standard{access=http,mux=mpjpeg,dst=:18223/}" --sout-http-mime="multipart/x-mixed-replace;boundary=--7b3cc56e5f51db803f790dad720ed50a"</pre>
 <br/>
 Launch a new instance of the web browser with the following parameters. It is not possible to use custom headers on VLC to overpass CORS.
-<pre>chromium-browser --disable-web-security</pre>
+<pre>chromium-browser --disable-web-security --user-data-dir</pre>
 <br/>
 
 <div id="video-stream">
