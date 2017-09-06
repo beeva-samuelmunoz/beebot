@@ -13,7 +13,7 @@ class Laser:
 		GPIO.setup(self.pin, GPIO.OUT)
 
 
-	def fire(self, sg):
+	def fire(self):
 		for i in range(10):
 			GPIO.output(self.pin, GPIO.HIGH)
 			time.sleep(0.1)
