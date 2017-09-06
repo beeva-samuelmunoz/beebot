@@ -93,6 +93,8 @@ function gameLoop() {
 
   var gamepads = navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads : []);
 
+  gamepadInfo.innerHTML	+= "get into gameLoop";	
+	
   if (!gamepads) {
     return;
   }
