@@ -89,7 +89,8 @@ function gameLoop() {
 
   var gamepads = navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads : []);
 
-  gamepadInfo.innerHTML = "inside gameLoop lol " + gamepads[0].buttons[0].pressed; 
+  gamepadInfo.innerHTML = "Gamepad inside connected at index " + gp.index + ": " + gp.id +
+            ". It has " + gp.buttons.length + " buttons and " + gp.axes.length + " axes."; 
 
   if (!gamepads) {
     return;
