@@ -14,11 +14,12 @@ var gamepadInfo = document.getElementById("gamepadPrompt");
 
 gamepadInfo.innerHTML = "searching gamepad";
 
-/*$(window).keydown(function(e) {
+$(window).keydown(function(e) {
   console.log(e.keyCode);
+  gamepadInfo.innerHTML = e.keyCode;
 });
 
-button.addEventListener('pointerup', function(event) {
+/*button.addEventListener('pointerup', function(event) {
     navigator.bluetooth.requestDevice({
     filters: [{
       services: ['heart_rate']
@@ -100,7 +101,7 @@ function gameLoop() {
   }
   var gp = gamepads[gamepadIndex];
 	
-   gamepadInfo.innerHTML = "get into gameLoop" + gp.buttons[0].pressed;	
+   gamepadInfo.innerHTML = "get into gameLoop " + gp.buttons[0].pressed;	
 	
   if (buttonPressed(gp.buttons[0])) {
     console.log("button 1 pressed! " + botComand.part + " - " + botComand.grades);
