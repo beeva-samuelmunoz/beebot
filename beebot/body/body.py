@@ -5,8 +5,9 @@ import RPi.GPIO as GPIO
 
 from .actuators.platform import Platform
 from .actuators.servo import Servo
-from .sensors.webcam_streamer import WebcamStreamer
+from .sensors.actuator import Laser
 from .sensors.dht11 import DHT11
+from .sensors.webcam_streamer import WebcamStreamer
 
 
 class Body:
@@ -121,6 +122,13 @@ class Body:
         """
         self.resources['dht11'] = DHT11(pin=4)
         self.resources['dht11'].stop = lambda : None  # Dummy function
+
+        """
+        LASER
+            Diode
+        """
+        self.resources['laser'] = Laser(pin=40)
+        self.resources['laser'].stop = lambda : None  # Dummy function
 
 
     def stop(self):
