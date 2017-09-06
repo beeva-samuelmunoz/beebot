@@ -1,7 +1,13 @@
 
+
 var interval, b = 0;
 
 var start;
+
+var botComand = {
+  part: '',
+  grades: 0
+}
 
 var gamepadIndex = 0;
 
@@ -33,7 +39,6 @@ button.addEventListener('pointerup', function(event) {
 
 window.addEventListener("gamepadconnected", function(e) {
   var gp = navigator.getGamepads()[e.gamepad.index];
-  console.log("Gamepad connected at index " + gp.index + ": " + gp.id + ". It has " + gp.buttons.length + " buttons and " + gp.axes.length + " axes.");
   //console.log("Gamepad connected at index " + gp.index + ": " + gp.id + ". It has " + gp.buttons.length + " buttons and " + gp.axes.length + " axes.");
   gameLoop();
 });
@@ -45,13 +50,14 @@ window.addEventListener("gamepaddisconnected", function(e) {
 
 if (!('ongamepadconnected' in window)) {
   // No gamepad events available, poll instead.
-  gamepadInfo.innerHTML = "founded";
+  gamepadInfo.innerHTML = "no gamepad";
   console.log("no device");
   interval = setInterval(pollGamepads, 500);
 }
 
 function pollGamepads() {
 	var gamepads = navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads : []);
+
 	for (var i = 0; i < gamepads.length; i++) {
 
 	    var gp = gamepads[i];
@@ -65,7 +71,6 @@ function pollGamepads() {
       ". It has " + gp.buttons.length + " buttons and " + gp.axes.length + " axes.");
       gameLoop();
       clearInterval(interval);*/
-	    
 	    if (gp) {
 	    	if( gamepads[i].id.substring(0, 3) != "Unk"){
 	    		  gamepadIndex = gp.index;
@@ -89,31 +94,45 @@ function gameLoop() {
 
   var gamepads = navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads : []);
 
-  gamepadInfo.innerHTML = "Gamepad inside connected at index " + gp.index + ": " + gp.id +
-            ". It has " + gp.buttons.length + " buttons and " + gp.axes.length + " axes."; 
-
   if (!gamepads) {
     return;
   }
   var gp = gamepads[gamepadIndex];
-  console.log(gp);
   if (buttonPressed(gp.buttons[0])) {
-    console.log("button 1 pressed!");
-    gamepadPrompt.innerHTML = "button 1 pressed!";
-    publish("beebot/shoulder_right", "+10");
-  } else if (buttonPressed(gp.buttons[2])) {
-    console.log("button 3 pressed!");
-    gamepadPrompt.innerHTML = "button 2 pressed!";
-    publish("beebot/shoulder_right", "-10");
+    console.log("button 1 pressed! " + botComand.part + " - " + botComand.grades);
+    botComand.part = "beebot/shoulder_right";
+    if(botComand.grades < 180) botComand.grades += 1;
+    gamepadInfo.innerHTML = "button 1 pressed!";
+    //publish("beebot/shoulder_right", "+10");
+  } 
+  else if (buttonPressed(gp.buttons[2])) {
+    console.log("button 3 pressed! " + botComand.part + " - " + botComand.grades);
+    botComand.part = "beebot/shoulder_right";
+    if(botComand.grades > -180) botComand.grades -= 1;
+    gamepadInfo.innerHTML = "button 2 pressed!";
+    //publish("beebot/shoulder_right", "+10");
   }
-  if (buttonPressed(gp.buttons[1])) {
-    console.log("button 2 pressed!");
-    gamepadPrompt.innerHTML = "button 3 pressed!";
-    publish("beebot/shoulder_left", "-10");
-  } else if (buttonPressed(gp.buttons[3])) {
-    console.log("button 4 pressed!");
-    gamepadPrompt.innerHTML = "button 4 pressed!";
-    publish("beebot/shoulder_left", "+10");
+  else if (buttonPressed(gp.buttons[1])) {
+    console.log("button 2 pressed! " + botComand.part + " - " + botComand.grades);
+    botComand.part = "beebot/shoulder_left";
+    if(botComand.grades > -180) botComand.grades -= 1;
+    gamepadInfo.innerHTML = "button 3 pressed!";
+    //publish("beebot/shoulder_left", "-10");
+  } 
+
+  else if (buttonPressed(gp.buttons[3])) {
+    console.log("button 4 pressed! " + botComand.part + " - " + botComand.grades);
+    botComand.part = "beebot/shoulder_left";
+    if(botComand.grades < 180) botComand.grades += 1;
+    gamepadInfo.innerHTML = "button 4 pressed!";
+    //publish("beebot/shoulder_left", "+10");
+  }
+  else {
+    gamepadInfo.innerHTML = "no buttons pressed " + botComand.part + " - " + botComand.grades; 
+    console.log("values: " + botComand.part + " - " + botComand.grades);
+    botComand.part = '';
+    botComand.grades = 0;
   }
   start = requestAnimationFrame(gameLoop);
 }
+
