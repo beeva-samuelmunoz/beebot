@@ -6,7 +6,7 @@ import RPi.GPIO as GPIO
 from .actuators.platform import Platform
 from .actuators.servo import Servo
 from .sensors.webcam_streamer import WebcamStreamer
-from .sensors.dht11 impor DHT11
+from .sensors.dht11 import DHT11
 
 
 class Body:
@@ -119,7 +119,7 @@ class Body:
         TEMPERATURE/HUMIDITY SENSOR
             DHT11
         """
-        self.resources['temp_hum'] = DHT11()
+        self.resources['temp_hum'] = DHT11(pin=4)
 
 
     def stop(self):

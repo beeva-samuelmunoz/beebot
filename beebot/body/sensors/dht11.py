@@ -34,7 +34,7 @@ class DHT11:
         crc = ""
         try:
             while data[count] == 1:
-	          tmp = 1
+                tmp = 1
         		count = count + 1
         	for i in range(0, 32):
         		bit_count = 0
@@ -46,9 +46,10 @@ class DHT11:
         			count = count + 1
         		if bit_count > 3:
         			if i>=0 and i<8:
-        				humidity_bit = humidity_bit + "1"
+		                humidity_bit = humidity_bit + "1"
         			if i>=16 and i<24:
-        				temperature_bit = temperature_bit + "1"        		else:
+        				temperature_bit = temperature_bit + "1"
+                else:
         			if i>=0 and i<8:
         				humidity_bit = humidity_bit + "0"
         			if i>=16 and i<24:
