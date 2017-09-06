@@ -104,3 +104,6 @@ class AWS_IOT:
         # Webcam
         elif ev=='camera_switch':
             self.client.publish("beebot/webcam/switch", 0, 0)
+        # Laser
+        elif ev=='laser':
+            self.client.publish("beebot/laser/fire", 0, 0)

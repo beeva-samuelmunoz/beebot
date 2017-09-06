@@ -32,7 +32,8 @@ class Keyboard:
             'a': 'head_pan_left',
             'd': 'head_pan_right',
             # Camera
-            'c': 'camera_switch'
+            'c': 'camera_switch',
+            ' ': 'laser'
         }
 
 

@@ -52,3 +52,6 @@ class Local:
         # Webcam
         elif ev=='camera_switch':
             self.body.resources['webcam'].switch()
+        # Laser
+        elif ev=='laser':
+            self.body.resources['laser'].fire()

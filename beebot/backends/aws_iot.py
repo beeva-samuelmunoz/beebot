@@ -52,6 +52,8 @@ class AWS_IOT:
             "beebot/head_tilt": self.body.resources['head_tilt'].set_relative,
             # Webcam
             "beebot/webcam/switch": lambda x: self.body.resources['webcam'].switch(),
+            # Laser
+            "beebot/laser/fire": lambda x: self.body.resources['laser'].fire(),
         }
         # Actuators: subscribe to topics
         for topic in self.TOPIC2ACTION.keys():
@@ -96,7 +98,7 @@ class AWS_IOT:
             status = payload
         except Exception as e:
             print(e)
-        # TODO status
+        # TODO status move it to the loop every x segs
         # if status:
             # self.client.publish(msg.topic+"/status", str(status) , 0)
             # resource = msg.topic.split('/')
