@@ -120,7 +120,7 @@ class Body:
             DHT11
         """
         self.resources['temp_hum'] = DHT11(pin=4)
-        self.resources['temp_hum'].stop = lambda : pass  # Dummy function
+        self.resources['temp_hum'].stop = lambda : None  # Dummy function
 
 
     def stop(self):
