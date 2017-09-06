@@ -39,13 +39,34 @@ class AWS_IOT:
         )
         self.client.connect(keepAliveIntervalSecond=60)
 
+        # Topic: Action
+        self.TOPIC2ACTION = {  # MQTT actuator topics
+            # Arms
+            "beebot/dht11/temperature": print,
+            "beebot/dht11/humidity": print,
+        }
+        # Actuators: subscribe to topics
+        for topic in self.TOPIC2ACTION.keys():
+            self.client.subscribe(topic, 1, self._msg_parser)
+
+
+    def _msg_parser(self, client_id, user_data, msg):
+        print(msg.topic)
+        print(msg.payload)
+        try:
+            payload = float(msg.payload)
+            self.TOPIC2ACTION[msg.topic]("<-\tTopic:{}\tMessage:{}".format(msg.topic, payload))
+            status = payload
+        except Exception as e:
+            print(e)
+
 
     def stop(self):
         self.client.disconnect()
 
 
     def event(self, ev):
-        print(ev)
+        print("->\tEvent: {}".format(ev))
         # Right arm
         if ev=='shoulder_right_down':
             self.client.publish("beebot/shoulder_right", +10, 0)
