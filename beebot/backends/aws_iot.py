@@ -68,7 +68,7 @@ class AWS_IOT:
                 temp, hum = dht11.temperature, dht11.humidity
             self.client.publish("beebot/dht11/temperature", temp , 0)
             self.client.publish("beebot/dht11/humidity", hum , 0)
-            time.sleep(5)
+            time.sleep(10)
 
 
     def loop(self):
