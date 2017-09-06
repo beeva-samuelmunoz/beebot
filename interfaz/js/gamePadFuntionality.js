@@ -98,20 +98,20 @@ function gameLoop() {
   console.log(gp);
   if (buttonPressed(gp.buttons[0])) {
     console.log("button 1 pressed!");
-    gamepadInfo.innerHTML = "button 1 pressed!";
+    gamepadPrompt.innerHTML = "button 1 pressed!";
     publish("beebot/shoulder_right", "+10");
   } else if (buttonPressed(gp.buttons[2])) {
     console.log("button 3 pressed!");
-    gamepadInfo.innerHTML = "button 2 pressed!";
+    gamepadPrompt.innerHTML = "button 2 pressed!";
     publish("beebot/shoulder_right", "-10");
   }
   if (buttonPressed(gp.buttons[1])) {
     console.log("button 2 pressed!");
-    gamepadInfo.innerHTML = "button 3 pressed!";
+    gamepadPrompt.innerHTML = "button 3 pressed!";
     publish("beebot/shoulder_left", "-10");
   } else if (buttonPressed(gp.buttons[3])) {
     console.log("button 4 pressed!");
-    gamepadInfo.innerHTML = "button 4 pressed!";
+    gamepadPrompt.innerHTML = "button 4 pressed!";
     publish("beebot/shoulder_left", "+10");
   }
   start = requestAnimationFrame(gameLoop);
