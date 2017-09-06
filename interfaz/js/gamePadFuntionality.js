@@ -1,5 +1,6 @@
 
 
+
 var interval, b = 0;
 
 var start;
@@ -74,9 +75,10 @@ function pollGamepads() {
 	    if (gp) {
 	    	if( gamepads[i].id.substring(0, 3) != "Unk"){
 	    		  gamepadIndex = gp.index;
-		      	console.log("Gamepad inside connected at index " + gp.index + ": " + gp.id +
-		        ". It has " + gp.buttons.length + " buttons and " + gp.axes.length + " axes.");
-		      	gameLoop();
+		      	console.log("Gamepad inside connected at index " + gp.index + ": " + gp.id +  ". It has " + gp.buttons.length + " buttons and " + gp.axes.length + " axes.");
+            gamepadInfo.innerHTML =  = gp.index;
+            console.log("Gamepad inside connected at index " + gp.index + ": " + gp.id + ". It has " + gp.buttons.length + " buttons and " + gp.axes.length + " axes."
+		      	//gameLoop();
 		      	clearInterval(interval);
 	    	}
 	    }
@@ -102,21 +104,21 @@ function gameLoop() {
     console.log("button 1 pressed! " + botComand.part + " - " + botComand.grades);
     botComand.part = "beebot/shoulder_right";
     if(botComand.grades < 180) botComand.grades += 1;
-    gamepadInfo.innerHTML = "button 1 pressed!";
+    gamepadInfo.innerHTML = "button 1 pressed! " + botComand.part + " - " + botComand.grades;
     //publish("beebot/shoulder_right", "+10");
   } 
   else if (buttonPressed(gp.buttons[2])) {
     console.log("button 3 pressed! " + botComand.part + " - " + botComand.grades);
     botComand.part = "beebot/shoulder_right";
     if(botComand.grades > -180) botComand.grades -= 1;
-    gamepadInfo.innerHTML = "button 2 pressed!";
+    gamepadInfo.innerHTML = "button 2 pressed! " + botComand.part + " - " + botComand.grades;
     //publish("beebot/shoulder_right", "+10");
   }
   else if (buttonPressed(gp.buttons[1])) {
     console.log("button 2 pressed! " + botComand.part + " - " + botComand.grades);
     botComand.part = "beebot/shoulder_left";
     if(botComand.grades > -180) botComand.grades -= 1;
-    gamepadInfo.innerHTML = "button 3 pressed!";
+    gamepadInfo.innerHTML = "button 3 pressed! " + botComand.part + " - " + botComand.grades;
     //publish("beebot/shoulder_left", "-10");
   } 
 
@@ -124,7 +126,7 @@ function gameLoop() {
     console.log("button 4 pressed! " + botComand.part + " - " + botComand.grades);
     botComand.part = "beebot/shoulder_left";
     if(botComand.grades < 180) botComand.grades += 1;
-    gamepadInfo.innerHTML = "button 4 pressed!";
+    gamepadInfo.innerHTML = "button 4 pressed! " + botComand.part + " - " + botComand.grades;
     //publish("beebot/shoulder_left", "+10");
   }
   else {
@@ -135,4 +137,3 @@ function gameLoop() {
   }
   start = requestAnimationFrame(gameLoop);
 }
-
