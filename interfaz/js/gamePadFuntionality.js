@@ -100,7 +100,7 @@ function gameLoop() {
   }
   var gp = gamepads[gamepadIndex];
 	
-   gamepadInfo.innerHTML += "get into gameLoop" + gp.buttons[0].pressed;	
+   gamepadInfo.innerHTML = "get into gameLoop" + gp.buttons[0].pressed;	
 	
   if (buttonPressed(gp.buttons[0])) {
     console.log("button 1 pressed! " + botComand.part + " - " + botComand.grades);
