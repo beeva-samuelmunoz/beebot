@@ -51,8 +51,6 @@ class AWS_IOT:
 
 
     def _msg_parser(self, client_id, user_data, msg):
-        print(msg.topic)
-        print(msg.payload)
         try:
             payload = float(msg.payload)
             self.TOPIC2ACTION[msg.topic]("<-\tTopic:{}\tMessage:{}".format(msg.topic, payload))
