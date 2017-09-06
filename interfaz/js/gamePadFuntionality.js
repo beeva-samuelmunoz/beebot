@@ -75,7 +75,7 @@ function pollGamepads() {
 	    		  gamepadIndex = gp.index;
 		      	console.log("Gamepad inside connected at index " + gp.index + ": " + gp.id +  ". It has " + gp.buttons.length + " buttons and " + gp.axes.length + " axes.");
             gamepadInfo.innerHTML =  "Gamepad inside connected at index " + gp.index + ": " + gp.id + ". It has " + gp.buttons.length + " buttons and " + gp.axes.length + " axes."
-		      	//gameLoop();
+		      	gameLoop();
 		      	clearInterval(interval);
 	    	}
 	    }
