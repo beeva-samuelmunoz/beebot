@@ -1,7 +1,7 @@
 
 var interval, b = 0;
 
-var start;
+var start, gameLoopCounter = 0;
 
 var botComand = {
   part: '',
@@ -233,7 +233,8 @@ function gameLoop() {
     //publish("beebot/shoulder_left", "+10");
   }
   else {
-    gamepadInfo.innerHTML = "no buttons pressed " + botComand.part + " - " + botComand.grades; 
+    gameLoopCounter += 1;	  
+    gamepadInfo.innerHTML = "no buttons pressed " + gameLoopCounter; 
     console.log("values: " + botComand.part + " - " + botComand.grades);
     botComand.part = '';
     botComand.grades = 0;
