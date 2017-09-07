@@ -46,7 +46,7 @@ class AWS_IOT:
             "beebot/platform/backward": self.body.resources['platform'].backward,
             "beebot/platform/turn_left": self.body.resources['platform'].turn_left,
             "beebot/platform/turn_right": self.body.resources['platform'].turn_right,
-            "beebot/platform/stop": self.stop,
+            "beebot/platform/stop": self.body.resources['platform'].stop,
             # Head
             "beebot/head_pan": self.body.resources['head_pan'].set_relative,
             "beebot/head_tilt": self.body.resources['head_tilt'].set_relative,
@@ -86,7 +86,6 @@ class AWS_IOT:
     def stop(self):
         self.exit = True
         worker_dht11.join()
-        self.body.resources['platform'].stop
         self.client.disconnect()
 
 

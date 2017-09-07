@@ -26,6 +26,7 @@ class Local:
                 temp, hum = dht11.temperature, dht11.humidity
             print("DHT11 - Temperature: {}".format(temp))
             print("DHT11 - Humidity: {}".format(hum))
+            time.sleep(10)
 
 
     def stop(self):
