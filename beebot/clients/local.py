@@ -12,19 +12,17 @@ class Local:
         self.exit = False
         self.worker_dht11 = threading.Thread(
                 name="worker_dht11",
-                target=self._print_dht11,
-                kwargs={'client':self}
+                target=self._print_dht11
         )
         self.worker_dht11.start()
 
 
-    @staticmethod
-    def _print_dht11(client):
+    def _print_dht11(self):
         temp, hum = 0, 0
-        while not client.exit:
+        while not self.exit:
             while hum==0:
                 time.sleep(0.5)
-                dht11 = client.body.resources['dht11'].read()
+                dht11 = self.body.resources['dht11'].read()
                 temp, hum = dht11.temperature, dht11.humidity
             print("DHT11 - Temperature: {}".format(temp))
             print("DHT11 - Humidity: {}".format(hum))
