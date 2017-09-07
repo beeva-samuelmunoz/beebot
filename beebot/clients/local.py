@@ -9,7 +9,7 @@ class Local:
 
     def __init__(self, body):
         self.body = body
-        self.stop = False
+        self.exit = False
         self.worker_dht11 = threading.Thread(
                 name="worker_dht11",
                 target=self._print_dht11
@@ -19,7 +19,7 @@ class Local:
 
     def _print_dht11(self):
         temp, hum = 0, 0
-        while not self.stop:
+        while not self.exit:
             while hum==0:
                 time.sleep(0.5)
                 dht11 = self.body.resources['dht11'].read()
@@ -29,7 +29,7 @@ class Local:
 
 
     def stop(self):
-        self.stop = True
+        self.exit = True
         worker_dht11.join()
 
 
