@@ -14,7 +14,7 @@ try:
     Keyboard(client, 0).loop()
 except Exception as e:
     print(e)
+    client.stop()
 finally:
     body.stop()
-    client.stop()
 print("Hasta la vista.")

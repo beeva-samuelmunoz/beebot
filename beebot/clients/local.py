@@ -14,7 +14,7 @@ class Local:
                 name="worker_dht11",
                 target=self._print_dht11
         )
-        worker_dht11.start()
+        self.worker_dht11.start()
 
 
     def _print_dht11(self):
@@ -30,7 +30,7 @@ class Local:
 
     def stop(self):
         self.exit = True
-        worker_dht11.join()
+        self.worker_dht11.join()
 
 
     def event(self, ev):
