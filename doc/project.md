@@ -65,6 +65,11 @@ And the paths can be configured in the files:
 * `beebot/beebot/beebot-aws_iot-backend`
 * `beebot/beebot/beebot-aws_iot-client`
 
+Example to copy the certs to the beebot.
+```
+scp -r data/AWS_iot-beebot  pi@172.24.1.134:~/beebot/data/.
+```
+
 
 ## Autorun  <a name="autorun"></a>
 If you want some behaviour to start everytime you reboot the beebot.
@@ -77,5 +82,5 @@ cp beebot/deploy/beebot.conf  /etc/supervisor/conf.d/
 Edit the `command` section of the file `/etc/supervisor/conf.d/beebot.conf` to choose the behavior.
 Example for AWS IoT.
 ```
-command=/home/pi/beebot/beebot/make run-aws_iot-backend
+command="make --directory=/home/pi/beebot run-aws_iot-backend"
 ```
