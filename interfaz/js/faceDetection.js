@@ -1,46 +1,4 @@
-<html>
-<head>
-	<script src="lib/tracking-min.js"></script>
-  <script src="lib/face-min.js"></script>
-  <!-- <script src="../build/data/eye-min.js"></script> -->
-  <!-- <script src="../build/data/mouth-min.js"></script> -->
 
-	<!-- Styles -->
-	<style>
-		.rect {
-			border: 2px solid #7FFF00;
-			left: -1000px;
-			position: absolute;
-			top: -1000px;
-		}
-
-		#stream {
-    	z-index: -1;
-		}
-
-		#canvas {
-    	visibility: hidden;
-		}
-	</style>
-</head>
-
-
-<body>
-<h1>Video streaming with face detection</h1>
-Launch a VLC streaming session with:
-<pre>cvlc --no-audio v4l2:///dev/video0:width=800:height=60--v4l2-fps 30 --sout "#transcode{vcodec=MJPG,vb=1600,fps=10}:standard{access=http,mux=mpjpeg,dst=:18223/}" --sout-http-mime="multipart/x-mixed-replace;boundary=--7b3cc56e5f51db803f790dad720ed50a"</pre>
-<br/>
-Launch a new instance of the web browser with the following parameters. It is not possible to use custom headers on VLC to overpass CORS.
-<pre>chromium-browser --disable-web-security --user-data-dir</pre>
-<br/>
-
-<div id="video-stream">
-	<img id="stream" class="stream" src="http://localhost:18223" />
-</div>
-<canvas id="canvas" width="320" height="240"></canvas>
-
-
-<script>
   window.onload = function() {
 		console.log("load");
 		var stream = document.getElementById('stream');
@@ -89,7 +47,3 @@ Launch a new instance of the web browser with the following parameters. It is no
 		ctx.drawImage(stream, 0, 0);
 		tracking.track('#canvas', tracker);
 	}
-</script>
-
-</body>
-</html>

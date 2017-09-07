@@ -102,7 +102,7 @@ function gameLoop() {
 
   gamepadInfo.innerHTML = "get into gameLoop " + gp.buttons[0].pressed;  
   
-  if (gp.buttons[0].pressed) {
+  if ( gp.buttons[0].pressed || gp.buttons[0] == 1) {
     botComand.part = "head";
     gamepadInfo.innerHTML = "button 1 pressed! " + botComand.part + " - " + botComand.grades;
     cleanGamePad();
@@ -180,7 +180,7 @@ function gameLoop() {
     if( botComand.part ==  'platform' ){ botComand.action = "beebot/platform/backward"; botComand.incremental = 0.01; }
     if( botComand.part ==  'shoulder_left' ){ botComand.action = "beebot/shoulder_left"; botComand.incremental = 1; }
     if( botComand.part ==  'shoulder_right' ){ botComand.action = "beebot/shoulder_right"; botComand.incremental = 1; }
-    if(botComand.grades < 180) botComand.grades += botComand.incremental;
+    if( botComand.grades < 180 ) botComand.grades += botComand.incremental;
     if( botComand.part ==  'platform' ) botComand.direction = "+";
     else  botComand.direction = "-";
     console.log("axe 1 pressed down " + botComand.action + " - " + botComand.grades);
