@@ -17,7 +17,7 @@ try:
         path_key=PATH_CERTS+"fb79c34b36-private.pem.key",
         path_cert=PATH_CERTS+"fb79c34b36-certificate.pem.crt"
     )
-    Keyboard(client).loop()
+    Keyboard(client, 0.3).loop()
 except Exception as e:
     print(e)
 finally:

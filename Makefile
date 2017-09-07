@@ -33,11 +33,6 @@ help:
 ### Install the project
 #
 
-install-system_packages: ## Install Required system packages (root permissions).
-	#TODO: python3, virtualenv, vlc
-	@echo "Installing system packages"
-
-
 install-env: ## Create a running environment (virtualenv).
 	@echo "Create the environment in "$(PATH_VENV)
 	@virtualenv -p python3.5 $(PATH_VENV)
@@ -52,13 +47,6 @@ install-env: ## Create a running environment (virtualenv).
 	@mkdir $(PATH_PROJECT)'/data'
 	@echo "PATH_DATA='$(PATH_PROJECT)/data/'">$(PATH_LIBRARY)'/config_local.py'
 	@echo "Done"
-
-
-install-bootup: ## Create files to start beebot on bootup  (root permissions).
-# TODO:
-# install supervisor
-#deploy supervisor deploy/beebot.conf
-
 
 
 #

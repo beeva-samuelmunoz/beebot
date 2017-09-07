@@ -58,12 +58,12 @@ class AWS_IOT:
         # Actuators: subscribe to topics
         for topic in self.TOPIC2ACTION.keys():
             self.client.subscribe(topic, 1, self._msg_parser)
-        self.stop = False  # Keep running everything
+        self.exit = False  # Keep running everything
 
 
     def _send_dht11(self):
         temp, hum = 0, 0
-        while not self.stop:
+        while not self.exit:
             while hum==0:
                 time.sleep(0.5)
                 dht11 = self.body.resources['dht11'].read()
@@ -74,18 +74,18 @@ class AWS_IOT:
 
 
     def loop(self):
-        worker_dht11_temperature = threading.Thread(
+        worker_dht11 = threading.Thread(
             name="worker_dht11",
             target=self._send_dht11
         )
-        worker_dht11_temperature.start()
-        while not self.stop:
+        worker_dht11.start()
+        while not self.exit:
             time.sleep(0.05)
 
 
     def stop(self):
-        self.stop = True
-        worker_dht11_temperature.join()
+        self.exit = True
+        worker_dht11.join()
         self.client.disconnect()
 
 

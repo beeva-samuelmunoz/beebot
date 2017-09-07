@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
 
-
-import time
-
 """ See:
 - https://pypi.python.org/pypi/AWSIoTPythonSDK
 - https://s3.amazonaws.com/aws-iot-device-sdk-python-docs/sphinx/html/generated/AWSIoTPythonSDK.MQTTLib.html#AWSIoTPythonSDK.MQTTLib.AWSIoTMQTTClient
@@ -64,6 +61,8 @@ class AWS_IOT:
 
 
     def event(self, ev):
+        """Note user timers smaller than controller delay (sg).
+        """
         print("->\tEvent: {}".format(ev))
         # Right arm
         if ev=='shoulder_right_down':
@@ -85,13 +84,13 @@ class AWS_IOT:
             self.client.publish("beebot/elbow_left", +10, 0)
         # Platform
         elif ev=='platform_forward':
-            self.client.publish("beebot/platform/forward", 0.1, 0)
+            self.client.publish("beebot/platform/forward", 0.25, 0)
         elif ev=='platform_backward':
-            self.client.publish("beebot/platform/backward", 0.1, 0)
+            self.client.publish("beebot/platform/backward", 0.25, 0)
         elif ev=='platform_right':
-            self.client.publish("beebot/platform/turn_right", 0.1, 0)
+            self.client.publish("beebot/platform/turn_right", 0.25, 0)
         elif ev=='platform_left':
-            self.client.publish("beebot/platform/turn_left", 0.1, 0)
+            self.client.publish("beebot/platform/turn_left", 0.25, 0)
         # Head
         elif ev=='head_tilt_up':
             self.client.publish("beebot/head_tilt", -10, 0)

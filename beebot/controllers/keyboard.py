@@ -8,8 +8,10 @@ import sys
 
 class Keyboard:
 
-    def __init__(self, client):
+    def __init__(self, client, delay=0):
         self.client = client
+        self.delay = delay
+        self.time = time.time()
         self.key2event = {  # Key mapping
             # Right arm
             'o': 'shoulder_right_up',
@@ -60,7 +62,9 @@ class Keyboard:
                 exit = True
             else:
                 event = self.key2event.get(key, None)
-                if event:
+                now = time.time()
+                if event and now-self.time>=self.delay:
+                    self.time = now
                     self.client.event(event)
 
 
