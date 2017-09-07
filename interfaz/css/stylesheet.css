@@ -5,6 +5,14 @@ body {
     background-color: #000011;
     font-family: 'Open Sans', sans-serif;
 }
+.buttonsGamePad{
+  position: absolute; 
+  bottom: 26%; 
+  right: 40.5%; 
+  width: 20%; 
+  height: 20%; 
+  display: none
+}
 .legends{
   position: absolute;
   bottom: 0%;

@@ -10,6 +10,8 @@ var button = document.getElementById('gamepadPrompt');
 var hasGP = false;
 var repGP;
 
+var gamepadInfo = document.getElementById("gamepadPrompt");
+
 AWS.config.region = 'us-east-1';
 var credentials = new AWS.CognitoIdentityCredentials({
     IdentityPoolId: 'us-east-1:a35616a1-15de-490d-9fa6-fbb00d3f08b6',
@@ -20,28 +22,6 @@ $(document).ready(function() {
     cognitoCredentials();
     init();
     animate();
-});
-
-$(window).keydown(function(e) {
-  console.log(e.keyCode);
-});
-
-button.addEventListener('pointerup', function(event) {
-    navigator.bluetooth.requestDevice({
-    filters: [{
-      services: ['heart_rate']
-    }]
-  })
-  .then(function(device){ console.log(device.name); return device.gatt.connect();})
-  .then(function(server){ server.getPrimaryService('heart_rate');})
-  .then(function(service){ service.getCharacteristic('heart_rate_measurement');})
-  .then(function(characteristic){characteristic.startNotifications();})
-  .then(function(characteristic){
-    characteristic.addEventListener('characteristicvaluechanged',
-                                    handleCharacteristicValueChanged);
-    console.log('Notifications have been started.');
-  })
-  .catch(function(error) { console.log('error: '+error); });
 });
 
 function cognitoCredentials(){
@@ -105,7 +85,8 @@ function init(data) {
 
   starSystem();
 
-  var Texture = new THREE.TextureLoader().load( "http://172.24.1.134:18223" );
+  //var Texture = new THREE.TextureLoader().load( "http://172.24.1.134:18223" );
+  var Texture = new THREE.TextureLoader().load( "images/sun.jpg" );
   var material = new THREE.MeshBasicMaterial( { color: 0xffff00, map: Texture } );
 
   var SUNgeometry = new THREE.SphereGeometry( 30, 32, 32, 0, 6.3 );
