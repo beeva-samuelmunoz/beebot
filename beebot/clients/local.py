@@ -1,10 +1,36 @@
 # -*- coding: utf-8 -*-
 
 
+import threading
+import time
+
+
 class Local:
 
     def __init__(self, body):
         self.body = body
+        self.stop = False
+        self.worker_dht11 = threading.Thread(
+                name="worker_dht11",
+                target=self._print_dht11
+        )
+        worker_dht11.start()
+
+
+    def _print_dht11(self):
+        temp, hum = 0, 0
+        while not self.stop:
+            while hum==0:
+                time.sleep(0.5)
+                dht11 = self.body.resources['dht11'].read()
+                temp, hum = dht11.temperature, dht11.humidity
+            print("DHT11 - Temperature: {}".format(temp))
+            print("DHT11 - Humidity: {}".format(hum))
+
+
+    def stop(self):
+        self.stop = True
+        worker_dht11.join()
 
 
     def event(self, ev):
