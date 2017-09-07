@@ -74,18 +74,18 @@ class AWS_IOT:
 
 
     def loop(self):
-        worker_dht11_temperature = threading.Thread(
+        worker_dht11 = threading.Thread(
             name="worker_dht11",
             target=self._send_dht11
         )
-        worker_dht11_temperature.start()
+        worker_dht11.start()
         while not self.stop:
             time.sleep(0.05)
 
 
     def stop(self):
         self.stop = True
-        worker_dht11_temperature.join()
+        worker_dht11.join()
         self.client.disconnect()
 
 
