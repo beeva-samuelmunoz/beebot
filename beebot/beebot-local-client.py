@@ -16,4 +16,5 @@ except Exception as e:
     print(e)
 finally:
     body.stop()
+    client.stop()
 print("Hasta la vista.")
