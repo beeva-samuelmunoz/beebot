@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
 
-
-import time
-
 """ See:
 - https://pypi.python.org/pypi/AWSIoTPythonSDK
 - https://s3.amazonaws.com/aws-iot-device-sdk-python-docs/sphinx/html/generated/AWSIoTPythonSDK.MQTTLib.html#AWSIoTPythonSDK.MQTTLib.AWSIoTMQTTClient
