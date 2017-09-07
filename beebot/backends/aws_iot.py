@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
+import threading
 import time
 
 """ See:
@@ -51,18 +52,40 @@ class AWS_IOT:
             "beebot/head_tilt": self.body.resources['head_tilt'].set_relative,
             # Webcam
             "beebot/webcam/switch": lambda x: self.body.resources['webcam'].switch(),
+            # Laser
+            "beebot/laser/fire": lambda x: self.body.resources['laser'].fire(),
         }
         # Actuators: subscribe to topics
         for topic in self.TOPIC2ACTION.keys():
             self.client.subscribe(topic, 1, self._msg_parser)
+        self.exit = False  # Keep running everything
+
+
+    def _send_dht11(self):
+        temp, hum = 0, 0
+        while not self.exit:
+            while hum==0:
+                time.sleep(0.5)
+                dht11 = self.body.resources['dht11'].read()
+                temp, hum = dht11.temperature, dht11.humidity
+            self.client.publish("beebot/dht11/temperature", temp , 0)
+            self.client.publish("beebot/dht11/humidity", hum , 0)
+            time.sleep(10)
 
 
     def loop(self):
-        while True:
+        worker_dht11 = threading.Thread(
+            name="worker_dht11",
+            target=self._send_dht11
+        )
+        worker_dht11.start()
+        while not self.exit:
             time.sleep(0.05)
 
 
     def stop(self):
+        self.exit = True
+        worker_dht11.join()
         self.client.disconnect()
 
 
@@ -75,7 +98,7 @@ class AWS_IOT:
             status = payload
         except Exception as e:
             print(e)
-        # TODO status
+        # TODO status move it to the loop every x segs
         # if status:
             # self.client.publish(msg.topic+"/status", str(status) , 0)
             # resource = msg.topic.split('/')

@@ -3,8 +3,10 @@
 
 import RPi.GPIO as GPIO
 
+from .actuators.laser import Laser
 from .actuators.platform import Platform
 from .actuators.servo import Servo
+from .sensors.dht11 import DHT11
 from .sensors.webcam_streamer import WebcamStreamer
 
 
@@ -112,7 +114,21 @@ class Body:
         """
         WEBCAM
         """
-        self.resources['webcam'] = WebcamStreamer('cvlc --no-audio v4l2:///dev/video0:width=800:height=600 --v4l2-fps 10 --sout "#transcode{vcodec=MJPG,vb=1600}:standard{access=http,mux=mpjpeg,dst=:18223/}" --sout-http-mime="multipart/x-mixed-replace;boundary=--7b3cc56e5f51db803f790dad720ed50a"')
+        self.resources['webcam'] = WebcamStreamer('cvlc --no-audio v4l2:///dev/video0:width=800:height=600 --v4l2-fps 30 --sout "#transcode{vcodec=MJPG,vb=1600,fps=10}:standard{access=http,mux=mpjpeg,dst=:18223/}" --sout-http-mime="multipart/x-mixed-replace;boundary=--7b3cc56e5f51db803f790dad720ed50a"')
+
+        """
+        TEMPERATURE/HUMIDITY SENSOR
+            DHT11
+        """
+        self.resources['dht11'] = DHT11(pin=4)
+        self.resources['dht11'].stop = lambda : None  # Dummy function
+
+        """
+        LASER
+            Diode
+        """
+        self.resources['laser'] = Laser(pin=21)
+        self.resources['laser'].stop = lambda : None  # Dummy function
 
 
     def stop(self):

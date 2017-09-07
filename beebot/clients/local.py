@@ -1,15 +1,37 @@
 # -*- coding: utf-8 -*-
 
 
+import threading
 import time
-import os
-import sys
 
 
 class Local:
 
     def __init__(self, body):
         self.body = body
+        self.exit = False
+        self.worker_dht11 = threading.Thread(
+                name="worker_dht11",
+                target=self._print_dht11
+        )
+        self.worker_dht11.start()
+
+
+    def _print_dht11(self):
+        temp, hum = 0, 0
+        while not self.exit:
+            while hum==0:
+                time.sleep(0.5)
+                dht11 = self.body.resources['dht11'].read()
+                temp, hum = dht11.temperature, dht11.humidity
+            print("DHT11 - Temperature: {}".format(temp))
+            print("DHT11 - Humidity: {}".format(hum))
+            time.sleep(10)
+
+
+    def stop(self):
+        self.exit = True
+        self.worker_dht11.join()
 
 
     def event(self, ev):
@@ -52,3 +74,6 @@ class Local:
         # Webcam
         elif ev=='camera_switch':
             self.body.resources['webcam'].switch()
+        # Laser
+        elif ev=='laser':
+            self.body.resources['laser'].fire()

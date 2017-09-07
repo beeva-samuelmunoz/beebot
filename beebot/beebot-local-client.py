@@ -11,9 +11,11 @@ try:
     body = Body()
     print("I am alive!\nPress Ctrl-D to exit:")
     client = Local(body)
-    Keyboard(client).loop()
+    Keyboard(client, 0).loop()
 except Exception as e:
     print(e)
 finally:
+    print("Stopping Beebot's body.")
     body.stop()
+    client.stop()
 print("Hasta la vista.")
