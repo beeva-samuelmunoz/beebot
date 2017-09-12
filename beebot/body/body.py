@@ -6,6 +6,7 @@ import RPi.GPIO as GPIO
 from .actuators.laser import Laser
 from .actuators.platform import Platform
 from .actuators.servo import Servo
+from .sensors.button import Button
 from .sensors.dht11 import DHT11
 from .sensors.webcam_streamer import WebcamStreamer
 
@@ -120,15 +121,26 @@ class Body:
         TEMPERATURE/HUMIDITY SENSOR
             DHT11
         """
-        self.resources['dht11'] = DHT11(pin=7)
+        self.resources['dht11'] = DHT11(
+            pin=7
+        )
         self.resources['dht11'].stop = lambda : None  # Dummy function
 
         """
         LASER
             Diode
         """
-        self.resources['laser'] = Laser(pin=21)
+        self.resources['laser'] = Laser(
+            pin=21
+        )
         self.resources['laser'].stop = lambda : None  # Dummy function
+
+        """
+        BUTTON
+        """
+        self.resources['button'] = Button(
+            pin=24
+        )
 
 
     def stop(self):

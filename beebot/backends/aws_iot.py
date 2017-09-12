@@ -19,6 +19,7 @@ class AWS_IOT:
         path_ca, path_key, path_cert,   # Credentials
     ):
         self.body = body
+        self.body['button'].set_callback(lambda : self.stop())
         # AWS IoT Client
         self.client = AWSIoTMQTTClient(client_id)
         self.client.configureEndpoint(endpoint_host, endpoint_port)
