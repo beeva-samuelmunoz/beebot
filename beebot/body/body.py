@@ -23,7 +23,7 @@ class Body:
             Max: 180º arm is down
         """
         self.resources['shoulder_right'] = Servo(
-            pin=19,
+            pin=4,
             deg_min=0,
             deg_max=180,
             dc_min=2,
@@ -31,7 +31,7 @@ class Body:
             pwm_freq=50
         )
         self.resources['shoulder_left'] = Servo(
-            pin=26,
+            pin=21,
             deg_min=0,
             deg_max=180,
             dc_min=2.5,
@@ -52,7 +52,7 @@ class Body:
             Max: 180º elbow is extended
         """
         self.resources['elbow_right'] = Servo(
-            pin=16,
+            pin=11,
             deg_min=70,
             deg_max=180,
             dc_min=6.8,
@@ -60,7 +60,7 @@ class Body:
             pwm_freq=50
         )
         self.resources['elbow_left'] = Servo(
-            pin=20,
+            pin=23,
             deg_min=0,
             deg_max=110,
             dc_min=3,
@@ -80,7 +80,7 @@ class Body:
             Max: 180º elbow is extended
         """
         self.resources['head_pan'] = Servo(
-            pin=6,
+            pin=2,
             deg_min=0,
             deg_max=180,
             dc_min=3,
@@ -88,7 +88,7 @@ class Body:
             pwm_freq=50
         )
         self.resources['head_tilt'] = Servo(
-            pin=13,
+            pin=3,
             deg_min=0,
             deg_max=180,
             dc_min=3,
@@ -104,10 +104,10 @@ class Body:
         PLATFORM
         """
         self.resources['platform']  = Platform(
-            in1=22,
-            in2=27,
-            in3=17,
-            in4=18,
+            in1=6,
+            in2=13,
+            in3=19,
+            in4=26,
         )
         self.resources['platform'].stop()
 
@@ -120,7 +120,7 @@ class Body:
         TEMPERATURE/HUMIDITY SENSOR
             DHT11
         """
-        self.resources['dht11'] = DHT11(pin=4)
+        self.resources['dht11'] = DHT11(pin=7)
         self.resources['dht11'].stop = lambda : None  # Dummy function
 
         """
