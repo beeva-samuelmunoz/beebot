@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import os
 
 from body.body import Body
 from backends.aws_iot import AWS_IOT
@@ -12,7 +13,12 @@ PATH_CERTS = PATH_DATA+'AWS_iot-beebot/'
 
 def func_button(_):
     backend.stop()
-    body.stop()
+    try:
+        body.stop()
+    except:
+        pass
+    finally:
+        os.system("sudo halt")
     print("Halt OS")
 
 
