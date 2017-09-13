@@ -12,7 +12,7 @@ class Button:
 
 
     def set_callback(self, callback):
-        GPIO.add_event_detect(self.pin, GPIO.RISING, callback=self.callback)
+        GPIO.add_event_detect(self.pin, GPIO.RISING, callback=callback)
 
 
     def stop(self):
