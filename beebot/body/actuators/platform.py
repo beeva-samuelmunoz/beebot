@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+"""
+See: https://hackerstore.nl/PDFs/Tutorial298.pdf
+"""
 
 import time
 
@@ -17,25 +20,25 @@ class Platform:
 
 
 	def forward(self, sg):
-		self.action([GPIO.LOW, GPIO.HIGH, GPIO.LOW, GPIO.HIGH])
-		time.sleep(sg)
-		self.stop()
-
-
-	def backward(self, sg):
-		self.action([GPIO.HIGH, GPIO.LOW, GPIO.HIGH, GPIO.LOW])
-		time.sleep(sg)
-		self.stop()
-
-
-	def turn_left(self, sg):
 		self.action([GPIO.HIGH, GPIO.LOW, GPIO.LOW, GPIO.HIGH])
 		time.sleep(sg)
 		self.stop()
 
 
-	def turn_right(self, sg):
+	def backward(self, sg):
 		self.action([GPIO.LOW, GPIO.HIGH, GPIO.HIGH, GPIO.LOW])
+		time.sleep(sg)
+		self.stop()
+
+
+	def turn_left(self, sg):
+		self.action([GPIO.HIGH, GPIO.LOW, GPIO.HIGH, GPIO.LOW])
+		time.sleep(sg)
+		self.stop()
+
+
+	def turn_right(self, sg):
+		self.action([GPIO.LOW, GPIO.HIGH, GPIO.LOW, GPIO.HIGH])
 		time.sleep(sg)
 		self.stop()
 

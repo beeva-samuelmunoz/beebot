@@ -32,7 +32,7 @@ class Body:
             pwm_freq=50
         )
         self.resources['shoulder_left'] = Servo(
-            pin=21,
+            pin=16,
             deg_min=0,
             deg_max=180,
             dc_min=2.5,
@@ -89,7 +89,7 @@ class Body:
             pwm_freq=50
         )
         self.resources['head_tilt'] = Servo(
-            pin=3,
+            pin=14,
             deg_min=0,
             deg_max=180,
             dc_min=3,
@@ -131,7 +131,7 @@ class Body:
             Diode
         """
         self.resources['laser'] = Laser(
-            pin=21
+            pin=22
         )
         self.resources['laser'].stop = lambda : None  # Dummy function
 
