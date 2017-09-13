@@ -10,9 +10,16 @@ PATH_CERTS = PATH_DATA+'AWS_iot-beebot/'
 
 
 
+def func_button(_):
+    backend.stop()
+    body.stop()
+    print("Halt OS")
+
+
 try:
     print("Starting body")
     body = Body()
+    body.resources['button'].set_callback( func_button )
     print("Connecting to AWS IoT")
     backend = AWS_IOT(
         body=body,
@@ -27,7 +34,4 @@ try:
     backend.loop()
 except Exception as e:
     print(e)
-finally:
-    backend.stop()
-    body.stop()
 print("Hasta la vista.")

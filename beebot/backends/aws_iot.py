@@ -19,7 +19,6 @@ class AWS_IOT:
         path_ca, path_key, path_cert,   # Credentials
     ):
         self.body = body
-        self.body.resources['button'].set_callback(lambda x: self.stop())
         # AWS IoT Client
         self.client = AWSIoTMQTTClient(client_id)
         self.client.configureEndpoint(endpoint_host, endpoint_port)
@@ -75,18 +74,18 @@ class AWS_IOT:
 
 
     def loop(self):
-        worker_dht11 = threading.Thread(
+        self.worker_dht11 = threading.Thread(
             name="worker_dht11",
             target=self._send_dht11
         )
-        worker_dht11.start()
+        self.worker_dht11.start()
         while not self.exit:
             time.sleep(0.05)
 
 
     def stop(self):
         self.exit = True
-        worker_dht11.join()
+        self.worker_dht11.join()
         self.client.disconnect()
 
 
