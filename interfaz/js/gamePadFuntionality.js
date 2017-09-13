@@ -8,7 +8,10 @@ var botComand = {
   grades: 0,
   action: '', 
   direction: '',
-  incremental: 1
+  incremental: 1,
+  lStatus: false,
+  rStatus: false,
+  buttonTrigger: false
 }
 
 var axisCleaned = true;
@@ -126,7 +129,6 @@ function gameLoop() {
     document.getElementById("platformButton2").style.display = "block";
     //publish("beebot/shoulder_left", "-10");
   } 
-
   else if (gp.buttons[3].pressed) {
     botComand.part = "shoulder_left";
     gamepadInfo.innerHTML = "button 4 pressed! " + botComand.part + " - " + botComand.grades;
@@ -134,7 +136,47 @@ function gameLoop() {
     document.getElementById("leftArmButton1").style.display = "block";
     document.getElementById("leftArmButton2").style.display = "block";
     //publish("beebot/shoulder_left", "+10");
-  }
+  } 
+  else if (gp.buttons[4].pressed) {
+    gamepadInfo.innerHTML = "button L pressed! ";
+    if(botComand.buttonTrigger == false){
+      botComand.buttonTrigger = true;
+      console.log("button L", botComand.buttonTrigger );
+      if(botComand.lStatus == false){
+        document.getElementById("LButton1").style.display = "block";
+        document.getElementById("LButton2").style.display = "block";
+        botComand.lStatus = true;
+        publish("beebot/webcam/switch", 0);
+      }
+      else{
+        document.getElementById("LButton1").style.display = "none";
+        document.getElementById("LButton2").style.display = "none"; 
+        botComand.lStatus = false;
+        publish("beebot/webcam/switch", 0); 
+      }
+    }
+    //publish("beebot/shoulder_left", "+10");
+  } 
+  else if (gp.buttons[5].pressed) {
+    gamepadInfo.innerHTML = "button R pressed! ";
+    if(botComand.buttonTrigger == false){
+      botComand.buttonTrigger = true;
+      console.log("button R", botComand.buttonTrigger );
+      if(botComand.rStatus == false){
+        document.getElementById("RButton1").style.display = "block";
+        document.getElementById("RButton2").style.display = "block";
+        publish("beebot/laser/fire", 0);
+        botComand.rStatus = true;
+      }
+      else{
+        document.getElementById("RButton1").style.display = "none";
+        document.getElementById("RButton2").style.display = "none";
+        publish("beebot/laser/fire", 0); 
+        botComand.rStatus = false; 
+      }
+    }
+    //publish("beebot/shoulder_left", "+10");
+  } 
   else if (gp.axes[0] == -1){
     document.getElementById("leftAxis1").style.display = "block";
     document.getElementById("leftAxis2").style.display = "block";
@@ -143,7 +185,7 @@ function gameLoop() {
     if( botComand.part ==  'platform' ){ botComand.action = "beebot/platform/turn_left"; botComand.incremental = 0.01; }
     if( botComand.part ==  'shoulder_left' ){ botComand.action = "beebot/elbow_left"; botComand.incremental = 1; }
     if( botComand.part ==  'shoulder_right' ){ botComand.action = "beebot/elbow_right"; botComand.incremental = 1; }
-    if(botComand.grades < 180) botComand.grades += botComand.incremental;
+    if( botComand.grades < 180 ) botComand.grades += botComand.incremental;
     if( botComand.part ==  'platform' ) botComand.direction = "+";
     else  botComand.direction = "-";
     console.log("axe 1 pressed left " + botComand.action + " - " + botComand.grades);
@@ -195,6 +237,7 @@ function gameLoop() {
     if(!axisCleaned) cleanAxes();
     if( botComand.grades != 0 ) console.log("values: " + botComand.action + " - " + botComand.direction + botComand.grades.toString());
     botComand.grades = 0;
+    botComand.buttonTrigger = false;
   }
   start = requestAnimationFrame(gameLoop);
 }
