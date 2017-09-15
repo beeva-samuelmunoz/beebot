@@ -7,10 +7,13 @@ body {
 }
 .buttonsGamePad{
   position: absolute; 
-  bottom: 26%; 
-  right: 40.5%; 
-  width: 20%; 
-  height: 20%; 
+  bottom: 0; 
+  right: 0;
+  top: 550px;
+  left: 0;
+  margin: auto;  
+  width: 250px; 
+  height: 250px; 
   display: none
 }
 .legends{

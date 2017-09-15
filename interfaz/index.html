@@ -25,40 +25,24 @@
   </head>
   <body>
     <div id="container"></div>
-      <img id="streaming1" style="position: absolute; top: 0; right: 0; width: 50%; height: 100%;" src="http://172.24.1.134:18223"/>
-      <img style="position: absolute; top: 0; right: 0; width: 50%; height: 100%;" src="images/botCabin.png"/>
-      <img id="streaming2" style="position: absolute; top: 0; left: 0; width: 50%; height: 100%;" src="http://172.24.1.134:18223"/>
-      <img style="position: absolute; top: 0; left: 0; width: 50%; height: 100%;" src="images/botCabin.png"/>
-      <canvas id="canvas" style="visibility: hidden;" width="320" height="240"></canvas>
-      <div id="gamepadPrompt" style="position: absolute; top: 0px; left: 0px; width: 50%; height: 100%; background-color: blue; cursor: pointer;font-size: 9px; display: none"></div>
-      <div id="gamePadImages" style="position: absolute; bottom: 0px; right : 0px; width: 50%; height: 100%;">
-        <img class="buttonsGamePad" style="display: block" src="images/mando.png"/>
-        <img id="headButton1" class="buttonsGamePad" src="images/headButton.png"/>
-        <img id="platformButton1" class="buttonsGamePad" src="images/platformButton.png"/>
-        <img id="rightArmButton1" class="buttonsGamePad" src="images/rightArmButton.png"/>
-        <img id="leftArmButton1" class="buttonsGamePad" src="images/leftArmButton.png"/>
-        <img id="LButton1" class="buttonsGamePad" src="images/LButton.png"/>
-        <img id="RButton1" class="buttonsGamePad" src="images/RButton.png"/>
-        <img id="startButton1" class="buttonsGamePad" src="images/startButton.png"/>
-        <img id="upAxis1" class="buttonsGamePad" src="images/upAxis.png"/>
-        <img id="downAxis1" class="buttonsGamePad" src="images/downAxis.png"/>
-        <img id="leftAxis1" class="buttonsGamePad" src="images/leftAxis.png"/>
-        <img id="rightAxis1" class="buttonsGamePad" src="images/rightAxis.png"/>
-      </div>
-       <div id="gamePadImages" style="position: absolute; bottom: 0px; left : 0px; width: 50%; height: 100%;">
-        <img class="buttonsGamePad" style="display: block" src="images/mando.png"/>
-        <img id="headButton2" class="buttonsGamePad" src="images/headButton.png"/>
-        <img id="platformButton2" class="buttonsGamePad" src="images/platformButton.png"/>
-        <img id="rightArmButton2" class="buttonsGamePad" src="images/rightArmButton.png"/>
-        <img id="leftArmButton2" class="buttonsGamePad" src="images/leftArmButton.png"/>
-        <img id="LButton2" class="buttonsGamePad" src="images/LButton.png"/>
-        <img id="RButton2" class="buttonsGamePad" src="images/RButton.png"/>
-        <img id="startButton1" class="buttonsGamePad" src="images/startButton.png"/>
-        <img id="upAxis2" class="buttonsGamePad" src="images/upAxis.png"/>
-        <img id="downAxis2" class="buttonsGamePad" src="images/downAxis.png"/>
-        <img id="leftAxis2" class="buttonsGamePad" src="images/leftAxis.png"/>
-        <img id="rightAxis2" class="buttonsGamePad" src="images/rightAxis.png"/>
-      </div>
+    <img id="streaming1" style="position: absolute; top: 0; right: 0; width: 100%; height: 100%;z-index: -1;" src="http://172.24.1.134:18223"/>
+    <img style="position: absolute; top: 0; right: 0; width: 100%; height: 100%;" src="images/botCabin.png"/>
+    <canvas id="canvas" style="position: absolute; top: 0; right: 0; width: 100%; height: 100%;visibility: hidden;"></canvas>
+    <div id="gamepadPrompt" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; background-color: blue; cursor: pointer;font-size: 9px; display: none"></div>
+    <div id="gamePadImages" style="position: absolute; bottom: 0px; right : 0px; width: 100%; height: 100%;">
+      <img class="buttonsGamePad" style="display: block" src="images/mando.png"/>
+      <img id="headButton1" class="buttonsGamePad" src="images/headButton.png"/>
+      <img id="platformButton1" class="buttonsGamePad" src="images/platformButton.png"/>
+      <img id="rightArmButton1" class="buttonsGamePad" src="images/rightArmButton.png"/>
+      <img id="leftArmButton1" class="buttonsGamePad" src="images/leftArmButton.png"/>
+      <img id="LButton1" class="buttonsGamePad" src="images/LButton.png"/>
+      <img id="RButton1" class="buttonsGamePad" src="images/RButton.png"/>
+      <img id="startButton1" class="buttonsGamePad" src="images/startButton.png"/>
+      <img id="upAxis1" class="buttonsGamePad" src="images/upAxis.png"/>
+      <img id="downAxis1" class="buttonsGamePad" src="images/downAxis.png"/>
+      <img id="leftAxis1" class="buttonsGamePad" src="images/leftAxis.png"/>
+      <img id="rightAxis1" class="buttonsGamePad" src="images/rightAxis.png"/>
+    </div>
   </body>
   <script src="libs/jquery.min.js" type="text/javascript"></script>
   <script src="https://api.trello.com/1/client.js?key=9320e082396f8974ad13d5cc33ed4661"></script>
@@ -73,6 +57,9 @@
   <script src="libs/tween.js"></script>
   <script src="libs/three.min.js"></script>
   <script src="libs/OrbitControls.js"></script>
+  <script src="libs/tracking-min.js"></script>
+  <script src="libs/face-min.js"></script>
+  <script src="js/faceDetection.js"></script>
   <script src="js/gamePadFuntionality.js"></script>
   <script src="js/main.js"></script>
 </html>

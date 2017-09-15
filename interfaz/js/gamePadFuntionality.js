@@ -72,31 +72,21 @@ function buttonPressed(b) {
 
 function cleanGamePad(){
   document.getElementById("headButton1").style.display = "none";
-  document.getElementById("headButton2").style.display = "none";
   document.getElementById("rightArmButton1").style.display = "none";
-  document.getElementById("rightArmButton2").style.display = "none";
   document.getElementById("platformButton1").style.display = "none";
-  document.getElementById("platformButton2").style.display = "none";
   document.getElementById("leftArmButton1").style.display = "none";
-  document.getElementById("leftArmButton2").style.display = "none";
 }
 function cleanAxes(){
   document.getElementById("upAxis1").style.display = "none";
-  document.getElementById("upAxis2").style.display = "none";
   document.getElementById("downAxis1").style.display = "none";
-  document.getElementById("downAxis2").style.display = "none";
   document.getElementById("leftAxis1").style.display = "none";
-  document.getElementById("leftAxis2").style.display = "none";
   document.getElementById("rightAxis1").style.display = "none";
-  document.getElementById("rightAxis2").style.display = "none";
   axisCleaned = true;
 }
 
 function gameLoop() {
 
   var gamepads = navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads : []);
-
-  
   
   if (!gamepads) {
     return;
@@ -105,12 +95,11 @@ function gameLoop() {
 
   gamepadInfo.innerHTML = "get into gameLoop " + gp.buttons[0].pressed;  
   
-  if ( gp.buttons[0].pressed || gp.buttons[0] == 1) {
+  if ( gp.buttons[0].pressed ) {
     botComand.part = "head";
     gamepadInfo.innerHTML = "button 1 pressed! " + botComand.part + " - " + botComand.grades;
     cleanGamePad();
     document.getElementById("headButton1").style.display = "block";
-    document.getElementById("headButton2").style.display = "block";
     //publish("beebot/shoulder_right", "+10");
   } 
   else if (gp.buttons[1].pressed) {
@@ -118,7 +107,6 @@ function gameLoop() {
     gamepadInfo.innerHTML = "button 2 pressed! " + botComand.part + " - " + botComand.grades;
     cleanGamePad();
     document.getElementById("rightArmButton1").style.display = "block";
-    document.getElementById("rightArmButton2").style.display = "block";
     //publish("beebot/shoulder_right", "+10");
   }
   else if (gp.buttons[2].pressed) {
@@ -126,7 +114,6 @@ function gameLoop() {
     gamepadInfo.innerHTML = "button 3 pressed! " + botComand.part + " - " + botComand.grades;
     cleanGamePad();
     document.getElementById("platformButton1").style.display = "block";
-    document.getElementById("platformButton2").style.display = "block";
     //publish("beebot/shoulder_left", "-10");
   } 
   else if (gp.buttons[3].pressed) {
@@ -134,7 +121,6 @@ function gameLoop() {
     gamepadInfo.innerHTML = "button 4 pressed! " + botComand.part + " - " + botComand.grades;
     cleanGamePad();
     document.getElementById("leftArmButton1").style.display = "block";
-    document.getElementById("leftArmButton2").style.display = "block";
     //publish("beebot/shoulder_left", "+10");
   } 
   else if (gp.buttons[4].pressed) {
@@ -144,15 +130,13 @@ function gameLoop() {
       console.log("button L", botComand.buttonTrigger );
       if(botComand.lStatus == false){
         document.getElementById("LButton1").style.display = "block";
-        document.getElementById("LButton2").style.display = "block";
         botComand.lStatus = true;
-        publish("beebot/webcam/switch", 0);
+        publish("beebot/webcam/switch", "0");
       }
       else{
         document.getElementById("LButton1").style.display = "none";
-        document.getElementById("LButton2").style.display = "none"; 
         botComand.lStatus = false;
-        publish("beebot/webcam/switch", 0); 
+        publish("beebot/webcam/switch", "0"); 
       }
     }
     //publish("beebot/shoulder_left", "+10");
@@ -164,14 +148,12 @@ function gameLoop() {
       console.log("button R", botComand.buttonTrigger );
       if(botComand.rStatus == false){
         document.getElementById("RButton1").style.display = "block";
-        document.getElementById("RButton2").style.display = "block";
-        publish("beebot/laser/fire", 0);
+        publish("beebot/laser/fire", "0");
         botComand.rStatus = true;
       }
       else{
         document.getElementById("RButton1").style.display = "none";
-        document.getElementById("RButton2").style.display = "none";
-        publish("beebot/laser/fire", 0); 
+        publish("beebot/laser/fire", "0"); 
         botComand.rStatus = false; 
       }
     }
@@ -179,51 +161,49 @@ function gameLoop() {
   } 
   else if (gp.axes[0] == -1){
     document.getElementById("leftAxis1").style.display = "block";
-    document.getElementById("leftAxis2").style.display = "block";
     axisCleaned = false;
     if( botComand.part ==  'head' ){ botComand.action = "beebot/head_pan"; botComand.incremental = 1; }
-    if( botComand.part ==  'platform' ){ botComand.action = "beebot/platform/turn_left"; botComand.incremental = 0.01; }
+    if( botComand.part ==  'platform' ){ botComand.action = "beebot/platform/turn_left"; botComand.incremental = 0.02; }
     if( botComand.part ==  'shoulder_left' ){ botComand.action = "beebot/elbow_left"; botComand.incremental = 1; }
     if( botComand.part ==  'shoulder_right' ){ botComand.action = "beebot/elbow_right"; botComand.incremental = 1; }
     if( botComand.grades < 180 ) botComand.grades += botComand.incremental;
-    if( botComand.part ==  'platform' ) botComand.direction = "+";
+    if( botComand.part ==  'platform' || botComand.part ==  'shoulder_right' ) botComand.direction = "+";
     else  botComand.direction = "-";
     console.log("axe 1 pressed left " + botComand.action + " - " + botComand.grades);
   }
   else if (gp.axes[0] == 1){
     document.getElementById("rightAxis1").style.display = "block";
-    document.getElementById("rightAxis2").style.display = "block";
     axisCleaned = false;
     if( botComand.part ==  'head' ){ botComand.action = "beebot/head_pan"; botComand.incremental = 1; }
-    if( botComand.part ==  'platform' ){ botComand.action = "beebot/platform/turn_right"; botComand.incremental = 0.01; } 
+    if( botComand.part ==  'platform' ){ botComand.action = "beebot/platform/turn_right"; botComand.incremental = 0.02; } 
     if( botComand.part ==  'shoulder_left' ){ botComand.action = "beebot/elbow_left"; botComand.incremental = 1; } 
     if( botComand.part ==  'shoulder_right' ){ botComand.action = "beebot/elbow_right"; botComand.incremental = 1; }
     if(botComand.grades < 180) botComand.grades += botComand.incremental;
-    botComand.direction = "+";
+    if( botComand.part ==  'shoulder_right' ) botComand.direction = "-";
+    else botComand.direction = "+";
     console.log("axe 1 pressed right " + botComand.action + " - " + botComand.grades);  
   }
   else if (gp.axes[1] == -1){
     document.getElementById("upAxis1").style.display = "block";
-    document.getElementById("upAxis2").style.display = "block";
     axisCleaned = false;
     if( botComand.part ==  'head' ){ botComand.action = "beebot/head_tilt"; botComand.incremental = 1; }
-    if( botComand.part ==  'platform' ){ botComand.action = "beebot/platform/forward"; botComand.incremental = 0.01; } 
+    if( botComand.part ==  'platform' ){ botComand.action = "beebot/platform/forward"; botComand.incremental = 0.02; } 
     if( botComand.part ==  'shoulder_left' ){ botComand.action = "beebot/shoulder_left"; botComand.incremental = 1; }  
     if( botComand.part ==  'shoulder_right' ){ botComand.action = "beebot/shoulder_right"; botComand.incremental = 1; }
     if(botComand.grades < 180) botComand.grades += botComand.incremental;
-    botComand.direction = "+";
+    if( botComand.part ==  'shoulder_right' ) botComand.direction = "-";
+    else botComand.direction = "+";
     console.log("axe 1 pressed up " + botComand.action + " - " + botComand.grades);
   }
   else if (gp.axes[1] == 1){
     document.getElementById("downAxis1").style.display = "block";
-    document.getElementById("downAxis2").style.display = "block";
     axisCleaned = false;
     if( botComand.part ==  'head' ){ botComand.action = "beebot/head_tilt"; botComand.incremental = 1; }
-    if( botComand.part ==  'platform' ){ botComand.action = "beebot/platform/backward"; botComand.incremental = 0.01; }
+    if( botComand.part ==  'platform' ){ botComand.action = "beebot/platform/backward"; botComand.incremental = 0.02; }
     if( botComand.part ==  'shoulder_left' ){ botComand.action = "beebot/shoulder_left"; botComand.incremental = 1; }
     if( botComand.part ==  'shoulder_right' ){ botComand.action = "beebot/shoulder_right"; botComand.incremental = 1; }
     if( botComand.grades < 180 ) botComand.grades += botComand.incremental;
-    if( botComand.part ==  'platform' ) botComand.direction = "+";
+    if( botComand.part ==  'platform' || botComand.part ==  'shoulder_right') botComand.direction = "+";
     else  botComand.direction = "-";
     console.log("axe 1 pressed down " + botComand.action + " - " + botComand.grades);
   }
@@ -232,10 +212,10 @@ function gameLoop() {
     //publish(botComand.action, botComand.direction + botComand.grades.toString());
     if(!axisCleaned) cleanAxes();
     if( botComand.grades != 0 && botComand.action != '' ) {
-      publish(botComand.action, botComand.direction + botComand.grades.toString());
+      publish(botComand.action, botComand.direction + (10 * botComand.incremental).toString());
      } 
     if(!axisCleaned) cleanAxes();
-    if( botComand.grades != 0 ) console.log("values: " + botComand.action + " - " + botComand.direction + botComand.grades.toString());
+    if( botComand.grades != 0 ) console.log("values: " + botComand.action + " - " + botComand.direction + (10 * botComand.incremental).toString());
     botComand.grades = 0;
     botComand.buttonTrigger = false;
   }

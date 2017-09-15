@@ -20,8 +20,8 @@ var mqttClient;
 
 $(document).ready(function() {
     cognitoCredentials();
-    init();
-    animate();
+    //init();
+    //animate();
 });
 
 function cognitoCredentials(){
@@ -52,13 +52,22 @@ function initMqttClient(requestUrl) {
         }
     };
     mqttClient.connect(connectOptions);
+    mqttClient.subscribe("beebot/dht11/temperature", printDatas);
+    mqttClient.subscribe("beebot/dht11/humidity", printDatas);
 }   
+
+function printDatas(data){
+  console.log("datos: ", data);
+}
 
 function publish(topic, message){
   var message = new Paho.MQTT.Message(message);
   message.destinationName = topic;
   mqttClient.send(message);
 }
+
+
+publish("beebot/webcam/switch", "0");
 
 function init(data) {
 
